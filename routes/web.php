@@ -1,5 +1,5 @@
 <?php
-use App\Models\Post;
+use App\Post;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\Translation\Dumper\YamlFileDumper;
 
@@ -16,7 +16,7 @@ use Symfony\Component\Translation\Dumper\YamlFileDumper;
 
 
 
-Route::get('/',function(){
+/*Route::get('/',function(){
    $files=File::files(resource_path("posts"));
 
    foreach($files as $file){
@@ -26,8 +26,8 @@ Route::get('/',function(){
 return view('posts',['posts'=>$post]);
     /*$posts=Post::all();
     ddd($posts[0]->ob_get_contents());
-    return view('posts',['posts'=>$posts]);*/
-});
+    return view('posts',['posts'=>$posts]);
+});*/
 
 /*Route::get('post/{post}', function ($slug) {
    if(! file_exists( $path= __DIR__.'./../resources/post/{$slug}.html')){
@@ -41,6 +41,10 @@ return view('posts',['posts'=>$post]);
         'post'=>$post
     ]);
 })->where('post','[A-z_\-]+');*/
-Route::get('posts/{post}',function($slug){
-    return view('post',['post' => Post::find($slug)]);
-})->where('post','[A-z]_\-');
+Route::get('/',function(){
+    return view('posts',['posts'=>Post::all()]);
+});
+
+Route::get('posts/{post}',function(Post $post){
+    return view('post',['post'=>$post]);
+});
