@@ -3,5 +3,5 @@
 <title>my blog</title>
 
 <body>
-    @yield('content');
+    @yield('content')
 </body>
