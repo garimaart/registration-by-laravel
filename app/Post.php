@@ -10,9 +10,12 @@ class Post extends Model
 
     use HasFactory;
 
-    protected $gauraded = [];
+    protected $fillable=[
+       'category_id','user_id', 'slug','title','excerpt','body',
+    ];
 
-    protected $with=['category','author'];
+    protected $with = ['category', 'author'];
+
     public function getRouteKeyName()
     {
         return 'slug';
@@ -26,6 +29,6 @@ class Post extends Model
     public function author()
     {
 
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

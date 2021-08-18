@@ -1,6 +1,8 @@
 <?php
 
 use App\Category;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\RegisterController;
 use App\Post;
 use App\User;
 use Illuminate\Support\Facades\Route;
@@ -45,7 +47,7 @@ return view('posts',['posts'=>$post]);
     ]);
 })->where('post','[A-z_\-]+');*/
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('posts', [
         'posts' => Post::latest()->get()
     ]);
@@ -60,8 +62,11 @@ Route::get('categories/{category:slug}', function (Category $category) {
     return view('posts', ['posts' => $category->posts]);
 });
 Route::get('authors/{author:username}',function(User $author){
-   return view('posts',[
+    return view('posts', [
        'posts'=>$author->posts
    ]);
-
-});
+});*/
+Route::get("register",[RegisterController::class,'create']);
+Route::post("register",[RegisterController::class,'store']);
+Route::get("posts",[PostController::class,'create']);
+Route::post('posts',[PostController::class,'store']);
