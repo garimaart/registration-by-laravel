@@ -7,24 +7,24 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    
+
     public function create()
     {
         return view('posts.create');
-}
-public function store()
+    }
+    public function store()
     {
-    $attributes= request()->validate([
-        'category_id' => 'required|max:100',
-        'user_id' => 'required|max:255',
-        'slug' => 'required|max:1000',
-        'title' => 'required|min:5|max:255',
-        'excerpt' => 'required|max:255',
-        'body' => 'required|min:70|max:1000',
+        $attributes = request()->validate([
+            'category_id' => 'required|max:100',
+            'user_id' => 'required|max:255',
+            'slug' => 'required|max:1000',
+            'title' => 'required|min:5|max:255',
+            'excerpt' => 'required|max:255',
+            'body' => 'required|min:70|max:1000',
         ]);
-        
-       Post::create($attributes);
 
-       return redirect('/posts');
-}
+        Post::create($attributes);
+
+        return redirect('/posts');
+    }
 }

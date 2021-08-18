@@ -19,7 +19,6 @@ class CreateCategoriesTable extends Migration
             $table->string('slug')->unique();
             $table->timestamps();
         });
-        
     }
 
     /**

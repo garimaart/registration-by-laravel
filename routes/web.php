@@ -66,7 +66,8 @@ Route::get('authors/{author:username}',function(User $author){
        'posts'=>$author->posts
    ]);
 });*/
-Route::get("register",[RegisterController::class,'create']);
-Route::post("register",[RegisterController::class,'store']);
-Route::get("posts",[PostController::class,'create']);
-Route::post('posts',[PostController::class,'store']);
+
+Route::get("register", [RegisterController::class, 'create']);
+Route::post("register", [RegisterController::class, 'store']);
+Route::get("posts", [PostController::class, 'create']);
+Route::post('posts', [PostController::class, 'store']);
