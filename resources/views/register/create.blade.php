@@ -12,6 +12,7 @@
                type="text"
                name="name"
                id="name"
+               value="{{old('name')}}"
                required
                >
                @error('name')
@@ -27,6 +28,7 @@
                type="text"
                name="username"
                id="username"
+               value="{{old('username')}}"
                required
                >
                @error('username')
@@ -36,11 +38,12 @@
             </div>
             <div class="mb-6">
                <label class="block mb-2 uppercase font-bold text-xs text-gray-700"  for="email">
+                  email
                </label>
                <input class="border border-gray-400 ps-2 w-fall"
                type="email"
                name="email"
-               id="email"
+               id="email1"
                required
                >
                @error('email')
@@ -65,12 +68,51 @@
                        @enderror
             </div>
             <div class="mb-6">
-               <button type="submit"
+               <button type="submit" id="submit"
                class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500">
                   submit
                </button>
             </div>
          </form>
+         
+<script>
+   $(document).ready(function() {
+      
+       $('#button').on('click', function() {
+         var name = $('#name').val();
+         var username=$('#username').val();
+         var email = $('#email1').val();
+         var password = $('#password').val();
+         if(name!="" && email!="" && username!=""){
+           /*  $("#butsave").attr("disabled", "disabled"); */
+             $.ajax({
+                 url: "/RegisterController",
+                 type: "POST",
+                 data: {
+                     type: 1,
+                     name: name,
+                     email: email,
+                 },
+                 cache: false,
+                 success: function(dataResult){
+                     console.log(dataResult);
+                     var dataResult = JSON.parse(dataResult);
+                     if(dataResult.statusCode==200){
+                       window.location = "/register";				
+                     }
+                     else if(dataResult.statusCode==201){
+                        alert("Error occured !");
+                     }
+                     
+                 }
+             });
+         }
+         else{
+             alert('Please fill all the field !');
+         }
+     });
+   });
+   </script>
       </main>
    </section>
 </x-layout>

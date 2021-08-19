@@ -12,6 +12,7 @@
                type="number"
                name="user_id"
                id="user_id"
+               value="{{old('user_id')}}"
                required
               >
               @error('user_id')
@@ -27,6 +28,7 @@
                type="slug"
                name="slug"
                id="slug"
+               value="{{old('slug')}}"
                required
               >
               @error('slug')
@@ -42,6 +44,7 @@
                 type="text"
                 name="title"
                 id="title"
+                value="{{old('title')}}"
                 required
                 >
                 @error('title')
@@ -57,6 +60,7 @@
                 type="text"
                 name="excerpt"
                 id="excerpt"
+                value="{{old('excerpt')}}"
                 required
                 >
                 </textarea>
@@ -74,6 +78,7 @@
                 type='text'              
                 name="body"
                 id="body"
+                value="{{old('body')}}"
                 required
                 >
                 </textarea>
@@ -83,12 +88,55 @@
                         @enderror
              </div>
              <div class="mb-6">
-                <button type="submit"
+                <button type="submit" id="submit"
                 class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500">
                    submit
                 </button>
              </div>
           </form>
+          <script>
+            $(document).ready(function() {
+               
+                $('#submit').on('click', function() {
+                  var user_id = $('#user_id').val();
+                  var slug = $('#slug').val();
+                  var excerpt = $('#excerpt').val();
+                  var body = $('#body').val();
+                  var title = $('#title').val();
+                  if(user_id!="" && slug!="" && excerpt!="" && body!="" && title!-""){
+                    /*  $("#butsave").attr("disabled", "disabled"); */
+                      $.ajax({
+                          url: "/PostController",
+                          type: "POST",
+                          data: {
+                              type: 1,
+                              user_id: user_id,
+                              slug: slug,
+                              excerpt: excerpt,
+                              body: body
+                              title: title
+
+                          },
+                          cache: false,
+                          success: function(dataResult){
+                              console.log(dataResult);
+                              var dataResult = JSON.parse(dataResult);
+                              if(dataResult.statusCode==200){
+                                window.location = "/posts";				
+                              }
+                              else if(dataResult.statusCode==201){
+                                 alert("Error occured !");
+                              }
+                              
+                          }
+                      });
+                  }
+                  else{
+                      alert('Please fill all the field !');
+                  }
+              });
+            });
+            </script>
        </main>
     </section>
  </x-layout>
