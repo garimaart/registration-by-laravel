@@ -25,9 +25,9 @@ class PostController extends Controller
 
         Post::create($attributes);
         return json_encode(array(
-            "statusCode"=>200
+            "statusCode" => 200
         ));
 
-        return redirect('/posts');
+        //return redirect('/posts');
     }
 }

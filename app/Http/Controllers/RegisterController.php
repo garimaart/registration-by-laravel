@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use function GuzzleHttp\Promise\all;
 
@@ -23,12 +24,12 @@ class RegisterController extends Controller
         ]);
 
         $attributes['password'] = bcrypt($attributes['password']);
-        $user=User::create($attributes);
+        $user = User::create($attributes);
         return json_encode(array(
-            "statusCode"=>200
+            "statusCode" => 200
         ));
-        auth()->login($user);
+        Auth::login($user);
 
-        return redirect('/register')->with('success','your account has been created');
+        // return redirect('/register')->with('success','your account has been created');
     }
 }

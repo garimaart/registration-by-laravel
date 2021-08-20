@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class SessionController extends Controller
 {
@@ -13,18 +15,23 @@ class SessionController extends Controller
 
     public function store()
     {
-      $attributes=request()->validate([
+        $attributes = request()->validate([
             'email' => 'required|email',
-            'password' =>'required|min:7',
+            'password' => 'required|min:7',
         ]);
-        if (auth()->attempt($attributes)) {
-            return redirect('/')->with('success','welcome back!');
+
+        if (!Auth::attempt($attributes)) {
+            session()->regenerate();
+            return redirect('/login')->with('success', 'welcome back!');
+        } else {
+            throw ValidationException::withMessages([
+                'email' => 'your provided credintials could not match'
+            ]);
         }
-        return back()->withErrors(['email'=>'your provided credentials could not be verified.']);
     }
     public function destroy()
     {
-        auth()->logout();
+        Auth::logout();
 
         return redirect('/register')->with('success', 'goodbye');
     }

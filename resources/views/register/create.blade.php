@@ -78,12 +78,12 @@
 <script>
    $(document).ready(function() {
       
-       $('#button').on('click', function() {
+       $('#submit').on('click', function() {
          var name = $('#name').val();
          var username=$('#username').val();
          var email = $('#email1').val();
          var password = $('#password').val();
-         if(name!="" && email!="" && username!=""){
+         if(name!="" && email!="" && username!=""&&password!=""){
            /*  $("#butsave").attr("disabled", "disabled"); */
              $.ajax({
                  url: "/RegisterController",
@@ -91,7 +91,9 @@
                  data: {
                      type: 1,
                      name: name,
+                     username:username,
                      email: email,
+                     password:password,
                  },
                  cache: false,
                  success: function(dataResult){
