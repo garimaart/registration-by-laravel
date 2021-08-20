@@ -22,10 +22,13 @@ use Symfony\Component\Translation\Dumper\YamlFileDumper;
 
 
 
-/*Route::get('/',function(){
-   $files=File::files(resource_path("posts"));
+Route::get('/',function(){
+    return view('posts', [
+       'posts'=>Post::latest()->with(['category','author'])->get()
+   ]);
+});
 
-   foreach($files as $file){
+   /*foreach($files as $file){
        yamlFrontMatter::parseFile($file);
    }
 
@@ -33,9 +36,9 @@ return view('posts',['posts'=>$post]);
     /*$posts=Post::all();
     ddd($posts[0]->ob_get_contents());
     return view('posts',['posts'=>$posts]);
-});*/
+});
 
-/*Route::get('post/{post}', function ($slug) {
+Route::get('post/{post}', function ($slug) {
    if(! file_exists( $path= __DIR__.'./../resources/post/{$slug}.html')){
        return redirect('/');
    }

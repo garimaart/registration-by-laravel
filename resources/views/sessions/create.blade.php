@@ -36,12 +36,48 @@
                         @enderror
              </div>
              <div class="mb-6">
-                <button type="submit"
+                <button type="submit" id="login"
                 class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500">
                    login
                 </button>
              </div>
           </form>
+          <script>
+            $(document).ready(function() {
+               
+                $('#login').on('click', function() {
+                  var email = $('#email1').val();
+                  var password = $('#password').val();
+                  if(email!=""&&password!=""){
+                    /*  $("#butsave").attr("disabled", "disabled"); */
+                      $.ajax({
+                          url: "/RegisterController",
+                          type: "POST",
+                          data: {
+                              type: 1,
+                              email: email,
+                              password:password,
+                          },
+                          cache: false,
+                          success: function(dataResult){
+                              console.log(dataResult);
+                              var dataResult = JSON.parse(dataResult);
+                              if(dataResult.statusCode==200){
+                                window.location = "/";				
+                              }
+                              else if(dataResult.statusCode==201){
+                                 alert("Error occured !");
+                              }
+                              
+                          }
+                      });
+                  }
+                  else{
+                      alert('Please fill all the field !');
+                  }
+              });
+            });
+            </script>
        </main>
     </section>
  </x-layout>

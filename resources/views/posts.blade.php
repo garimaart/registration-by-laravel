@@ -1,4 +1,5 @@
-@extends('layout')
+<x-layout>
+{{--@extends('layout')
 @section('content')
     
 
@@ -16,4 +17,5 @@
     
         
     @endforeach
-    @endsection
+    @endsection--}}
+</x-layout>

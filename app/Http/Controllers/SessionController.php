@@ -22,7 +22,7 @@ class SessionController extends Controller
 
         if (!Auth::attempt($attributes)) {
             session()->regenerate();
-            return redirect('/login')->with('success', 'welcome back!');
+            return redirect('/')->with('success', 'welcome back!');
         } else {
             throw ValidationException::withMessages([
                 'email' => 'your provided credintials could not match'

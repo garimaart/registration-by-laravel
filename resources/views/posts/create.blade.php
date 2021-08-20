@@ -138,7 +138,7 @@
                               console.log(dataResult);
                               var dataResult = JSON.parse(dataResult);
                               if(dataResult.statusCode==200){
-                                window.location = "/posts";				
+                                window.location = "/";				
                               }
                               else if(dataResult.statusCode==201){
                                  alert("Error occured !");
