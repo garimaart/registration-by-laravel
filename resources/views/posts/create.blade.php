@@ -119,17 +119,17 @@
                   var excerpt = $('#excerpt').val();
                   var body = $('#body').val();
                   var title = $('#title').val();
-                  if(user_id!="" && slug!="" && excerpt!="" && body!="" && title!-""){
+                  if(user_id!="" && slug!="" && excerpt!="" && body!="" && title!=""){
                     /*  $("#butsave").attr("disabled", "disabled"); */
                       $.ajax({
                           url: "/PostController",
                           type: "POST",
                           data: {
                               type: 1,
-                              user_id: user_id,
+                              user_id :user_id,
                               slug: slug,
                               excerpt: excerpt,
-                              body: body
+                              body: body,
                               title: title
 
                           },
@@ -138,7 +138,7 @@
                               console.log(dataResult);
                               var dataResult = JSON.parse(dataResult);
                               if(dataResult.statusCode==200){
-                                window.location = "/";				
+                              alert("posts created");			
                               }
                               else if(dataResult.statusCode==201){
                                  alert("Error occured !");

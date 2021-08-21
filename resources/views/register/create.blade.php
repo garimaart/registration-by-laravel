@@ -74,7 +74,7 @@
                </button>
             </div>
          </form>
-         
+
 <script>
    $(document).ready(function() {
       
@@ -100,7 +100,7 @@
                      console.log(dataResult);
                      var dataResult = JSON.parse(dataResult);
                      if(dataResult.statusCode==200){
-                       window.location = "/";				
+                       window.location.href = "/";				
                      }
                      else if(dataResult.statusCode==201){
                         alert("Error occured !");

@@ -51,7 +51,7 @@
                   if(email!=""&&password!=""){
                     /*  $("#butsave").attr("disabled", "disabled"); */
                       $.ajax({
-                          url: "/RegisterController",
+                          url: "/SessionController",
                           type: "POST",
                           data: {
                               type: 1,
@@ -63,7 +63,7 @@
                               console.log(dataResult);
                               var dataResult = JSON.parse(dataResult);
                               if(dataResult.statusCode==200){
-                                window.location = "/";				
+                                window.location.href = "/";				
                               }
                               else if(dataResult.statusCode==201){
                                  alert("Error occured !");

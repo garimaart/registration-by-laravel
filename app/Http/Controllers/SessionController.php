@@ -16,13 +16,16 @@ class SessionController extends Controller
     public function store()
     {
         $attributes = request()->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:7',
+            'email' => 'required|exists:users,email',
+            'password' => 'required|min:7|exists:users,password',
         ]);
 
         if (!Auth::attempt($attributes)) {
             session()->regenerate();
-            return redirect('/')->with('success', 'welcome back!');
+            //return redirect('/')->with('success', 'welcome back!');
+            return json_encode(array(
+                "statusCode" => 200
+            ));
         } else {
             throw ValidationException::withMessages([
                 'email' => 'your provided credintials could not match'

@@ -15,8 +15,8 @@ class PostController extends Controller
     public function store()
     {
         $attributes = request()->validate([
-            'category_id' => 'required|max:100',
-            'user_id' => 'required|max:255',
+            'category_id' => 'required|max:100|exists:categories,id',
+            'user_id' => 'required|max:255|exists:users,id',
             'slug' => 'required|max:1000|unique:posts,slug',
             'title' => 'required|min:5|max:255',
             'excerpt' => 'required|max:255',

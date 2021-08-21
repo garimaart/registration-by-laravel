@@ -26,7 +26,8 @@ class RegisterController extends Controller
         $attributes['password'] = bcrypt($attributes['password']);
         $user = User::create($attributes);
         return json_encode(array(
-            "statusCode" => 200
+            "statusCode" => 200,
+            "message"=>"'your account has been created",
         ));
         Auth::login($user);
 
