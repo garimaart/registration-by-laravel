@@ -22,21 +22,21 @@ class SessionController extends Controller
             'password' => 'required|min:7',
         ]);
         $user = User::where('email', request('email'))->first();
-    if(!Hash::check(request('password'), $user->password)){
-        return redirect('login');
-    }else{
-        if (!Auth::attempt($attributes)) {
-            session()->regenerate();
-            //return redirect('/')->with('success', 'welcome back!');
-            return json_encode(array(
-                "statusCode" => 200
-            ));
+        if (!Hash::check(request('password'), $user->password)) {
+            return redirect('login');
         } else {
-            throw ValidationException::withMessages([
-                'email' => 'your provided credintials could not match'
-            ]);
+            if (!Auth::attempt($attributes)) {
+                session()->regenerate();
+                //return redirect('/')->with('success', 'welcome back!');
+                return json_encode(array(
+                    "statusCode" => 200
+                ));
+            } else {
+                throw ValidationException::withMessages([
+                    'email' => 'your provided credintials could not match'
+                ]);
+            }
         }
-    }
     }
     public function destroy()
     {

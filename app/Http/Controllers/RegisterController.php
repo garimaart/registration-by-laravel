@@ -27,7 +27,7 @@ class RegisterController extends Controller
         $user = User::create($attributes);
         return json_encode(array(
             "statusCode" => 200,
-            "message"=>"'your account has been created",
+            "message" => "'your account has been created",
         ));
         Auth::login($user);
 

@@ -22,13 +22,13 @@ use Symfony\Component\Translation\Dumper\YamlFileDumper;
 
 
 
-Route::get('/',function(){
+Route::get('/', function () {
     return view('posts', [
-       'posts'=>Post::latest()->with(['category','author'])->get()
-   ]);
+        'posts' => Post::latest()->with(['category', 'author'])->get()
+    ]);
 });
 
-   /*foreach($files as $file){
+/*foreach($files as $file){
        yamlFrontMatter::parseFile($file);
    }
 
@@ -75,6 +75,6 @@ Route::get("register", [RegisterController::class, 'create']);
 Route::post("register", [RegisterController::class, 'store']);
 Route::get("posts", [PostController::class, 'create'])->middleware('guest');
 Route::post('posts', [PostController::class, 'store'])->middleware('guest');
-Route::get('login',[SessionController::class,'create'])->middleware('guest');
-Route::post('login',[SessionController::class,'store'])->middleware('guest');
-Route::post('logout',[SessionController::class,'destroy'])->middleware('auth');
+Route::get('login', [SessionController::class, 'create'])->middleware('guest');
+Route::post('login', [SessionController::class, 'store'])->middleware('guest');
+Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth');
