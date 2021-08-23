@@ -12,9 +12,9 @@ class PostController extends Controller
     {
         return view('posts.create');
     }
-    public function store()
+    public function store(Request $request)
     {
-        $attributes = request()->validate([
+        $request->validate([
             'category_id' => 'required|max:100|exists:categories,id',
             'user_id' => 'required|max:255|exists:users,id',
             'slug' => 'required|max:1000|unique:posts,slug',
@@ -23,10 +23,10 @@ class PostController extends Controller
             'body' => 'required|min:70|max:1000',
         ]);
 
-        Post::create($attributes);
-        return json_encode(array(
+        Post::create($request->all());
+        return response()->json([
             "statusCode" => 200
-        ));
+        ]);
 
         //return redirect('/posts');
     }

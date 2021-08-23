@@ -15,13 +15,13 @@ class SessionController extends Controller
         return view('sessions.create');
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        $attributes = request()->validate([
+        $request->validate([
             'email' => 'required|exists:users,email',
             'password' => 'required|min:7',
         ]);
-        $user = User::where('email', request('email'))->first();
+        /*$user = User::where('email', request('email'))->first();
         if (!Hash::check(request('password'), $user->password)) {
             return redirect('login');
         } else {
@@ -36,7 +36,12 @@ class SessionController extends Controller
                     'email' => 'your provided credintials could not match'
                 ]);
             }
-        }
+        }*/
+        User::create($request->all());
+        return response()->json([
+            "statusCode" => 200,
+            "message" => "your account has been found",
+        ]);
     }
     public function destroy()
     {

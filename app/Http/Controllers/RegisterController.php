@@ -14,22 +14,22 @@ class RegisterController extends Controller
     {
         return view('register.create');
     }
-    public function store()
+    public function store(Request $request)
     {
-        $attributes = request()->validate([
+       $request->validate([
             'name' => 'required|max:255|min:5',
             'username' => 'required|min:3|max:255|unique:users,username',
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|min:7',
         ]);
 
-        $attributes['password'] = bcrypt($attributes['password']);
-        $user = User::create($attributes);
-        return json_encode(array(
+       // $attributes['password'] = bcrypt($attributes['password']);
+         User::create($request->all());
+        return response()->json([
             "statusCode" => 200,
-            "message" => "'your account has been created",
-        ));
-        Auth::login($user);
+            "message" => "your account has been created",
+        ]);
+       // Auth::login($user);
 
         // return redirect('/register')->with('success','your account has been created');
     }

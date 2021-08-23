@@ -5,6 +5,7 @@
             <form method="POST" action="/posts" class="mt-10">
                 @csrf
                 <div class="mb-6">
+                    <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
                     <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="user_id">
                         user id
                     </label>
@@ -90,9 +91,9 @@
                         var body = $('#body').val();
                         var title = $('#title').val();
                         if (user_id != "" && slug != "" && excerpt != "" && body != "" && title != "") {
-                            /*  $("#butsave").attr("disabled", "disabled"); */
                             $.ajax({
-                                url: "/PostController",
+                                _token: $("#csrf").val(),
+                                url: "/posts",
                                 type: "POST",
                                 data: {
                                     type: 1,
@@ -104,12 +105,11 @@
 
                                 },
                                 cache: false,
-                                success: function(dataResult) {
-                                    console.log(dataResult);
-                                    var dataResult = JSON.parse(dataResult);
-                                    if (dataResult.statusCode == 200) {
+                                success: function(response) {
+                                    alert(response.statusCode);
+                                    if (response.statusCode == 200) {
                                         alert("posts created");
-                                    } else if (dataResult.statusCode == 201) {
+                                    } else if (response.statusCode == 201) {
                                         alert("Error occured !");
                                     }
 

@@ -5,6 +5,7 @@
             <form method="POST" action="/register" class="mt-10">
                 @csrf
                 <div class="mb-6">
+                    <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
                     <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="name">
                         Nmae
                     </label>
@@ -64,10 +65,10 @@
                         var username = $('#username').val();
                         var email = $('#email1').val();
                         var password = $('#password').val();
-                        alert(name);
                         if (name != "" && email != "" && username != "" && password != "") {
                             $.ajax({
-                                url: "/RegisterController",
+                                _token: $("#csrf").val(),
+                                url: "/register",
                                 type: "POST",
                                 datatype: 'json',
                                 data: {
@@ -77,13 +78,14 @@
                                     email: email,
                                     password: password,
                                 },
-                                success: function(data) {
-                                    console.log(data);
-                                    var dataResult = JSON.parse(data);
-                                    if (dataResult.statusCode == 200) {
-                                        alert(dataResult.message);
+                                cache: false,
+                                success: function(response) {
+                                    console.log(response);
+                                    var response = JSON.parse(response);
+                                    if(response.statusCode == 200) {
+                                        console.log(response.message);
                                         window.location.href = "/register";
-                                    } else if (dataResult.statusCode == 201) {
+                                    } else if (response.statusCode == 201) {
                                         alert("Error occured !");
                                     }
 

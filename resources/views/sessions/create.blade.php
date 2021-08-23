@@ -5,6 +5,7 @@
             <form method="POST" action="/login" class="mt-10">
                 @csrf
                 <div class="mb-6">
+                    <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
                     <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="email">
                         email
                     </label>
@@ -41,18 +42,19 @@
                         if (email != "" && password != "") {
                             /*  $("#butsave").attr("disabled", "disabled"); */
                             $.ajax({
-                                url: "/SessionController",
+                                _token: $("#csrf").val(),
+                                url: "/login",
                                 type: "POST",
                                 data: {
                                     type: 1,
                                     email: email,
                                     password: password,
                                 },
-                                success: function(dataResult) {
+                                success: function(response) {
                                     console.log(dataResult);
                                     var dataResult = JSON.parse(dataResult);
                                     if (dataResult.statusCode == 200) {
-                                        window.location.href = "/";
+                                        window.location.href = "/login";
                                     } else if (dataResult.statusCode == 201) {
                                         alert("Error occured !");
                                     }
