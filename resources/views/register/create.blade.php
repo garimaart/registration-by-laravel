@@ -84,10 +84,10 @@
          var email = $('#email1').val();
          var password = $('#password').val();
          if(name!="" && email!="" && username!=""&&password!=""){
-           /*  $("#butsave").attr("disabled", "disabled"); */
              $.ajax({
                  url: "/RegisterController",
                  type: "POST",
+                 datatype:'json',
                  data: {
                      type: 1,
                      name: name,
@@ -95,12 +95,12 @@
                      email: email,
                      password:password,
                  },
-                 cache: false,
-                 success: function(dataResult){
-                     console.log(dataResult);
-                     var dataResult = JSON.parse(dataResult);
+                 success: function(data){
+                     console.log(data);
+                     var dataResult = JSON.parse(data);
                      if(dataResult.statusCode==200){
-                       window.location.href = "/";				
+                        alert(dataResult.message);
+                       window.location.href = "/register";				
                      }
                      else if(dataResult.statusCode==201){
                         alert("Error occured !");

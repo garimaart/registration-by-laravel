@@ -58,7 +58,6 @@
                               email: email,
                               password:password,
                           },
-                          cache: false,
                           success: function(dataResult){
                               console.log(dataResult);
                               var dataResult = JSON.parse(dataResult);

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class SessionController extends Controller
@@ -17,9 +19,12 @@ class SessionController extends Controller
     {
         $attributes = request()->validate([
             'email' => 'required|exists:users,email',
-            'password' => 'required|min:7|exists:users,password',
+            'password' => 'required|min:7',
         ]);
-
+        $user = User::where('email', request('email'))->first();
+    if(!Hash::check(request('password'), $user->password)){
+        return redirect('login');
+    }else{
         if (!Auth::attempt($attributes)) {
             session()->regenerate();
             //return redirect('/')->with('success', 'welcome back!');
@@ -31,6 +36,7 @@ class SessionController extends Controller
                 'email' => 'your provided credintials could not match'
             ]);
         }
+    }
     }
     public function destroy()
     {
