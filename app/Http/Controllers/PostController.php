@@ -24,10 +24,9 @@ class PostController extends Controller
         ]);
 
         Post::create($request->all());
-        return response()->json([
+        return json_encode(array(
             "statusCode" => 200
-        ]);
-
+        ));
         //return redirect('/posts');
     }
 }

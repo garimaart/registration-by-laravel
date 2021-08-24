@@ -2,122 +2,99 @@
     <section class="px-6 py-8">
         <main class="max-w-lg mx-auto mt-10 bg-gray-300 border border-gray-500 p-6 rounded-xl">
             <h1 class="text-center font-bold txt-ml">Posts</h1>
-            <form method="POST" action="/posts" class="mt-10">
-                @csrf
-                <div class="mb-6">
-                    <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
-                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="user_id">
-                        user id
-                    </label>
-                    <input class="border border-gray-400 ps-2 w-fall" type="number" name="user_id" id="user_id"
-                        value="{{ old('user_id') }}" required>
-                    @error('user_id')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
 
-                    @enderror
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
-                <div class="mb-6">
-                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="slug">
-                        slug
-                    </label>
-                    <input class="border border-gray-400 ps-2 w-fall" type="slug" name="slug" id="slug"
-                        value="{{ old('slug') }}" required>
-                    @error('slug')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-
-                    @enderror
-                </div>
-                <div class="mb-6">
-                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="category_id">
-                        category_id
-                    </label>
-                    <input class="border border-gray-400 ps-2 w-fall" type="number" name="category_id" id="category_id"
-                        value="{{ old('category_id') }}" required>
-                    @error('title')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-
-                    @enderror
-                </div>
-                <div class="mb-6">
-                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="title">
-                        title
-                    </label>
-                    <input class="border border-gray-400 ps-2 w-fall" type="text" name="title" id="title"
-                        value="{{ old('title') }}" required>
-                    @error('title')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-
-                    @enderror
-                </div>
-                <div class="mb-6">
-                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="excerpt">
-                        excerpt
-                    </label>
-                    <textarea class="border border-gray-400 ps-2 w-fall" type="text" name="excerpt" id="excerpt"
-                        value="{{ old('excerpt') }}" required>
-                </textarea>
-                    @error('excerpt')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-
-                    @enderror
-                </div>
-
-                <div class="mb-6">
-                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="body">
-                        body
-                    </label>
-                    <textarea class="border border-gray-400 ps-2 w-fall" type='text' name="body" id="body"
-                        value="{{ old('body') }}" required>
-                </textarea>
-                    @error('body')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-
-                    @enderror
-                </div>
-                <div class="mb-6">
-                    <button type="submit" id="submit"
-                        class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500">
-                        submit
-                    </button>
-                </div>
-            </form>
+            @endif
+            <div class="form-group mb-6">
+                <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
+                <label for="text">Slug:</label>
+                <input type="text" class="form-control" id="slug" placeholder="Enter slug" name="slug">
+            </div>
+            <div class="form-group mb-6">
+                <label for="user_id">User id:</label>
+                <input type="number" class="form-control" id="user_id" placeholder="Enter user_id" name="user_id">
+            </div>
+            <div class="form-group mb-6">
+                <label for="category_id">Category id:</label>
+                <input type="number" class="form-control" id="category_id" placeholder="Enter category_id"
+                    name="category_id">
+            </div>
+            <div class="form-group mb-6">
+                <label for="title">Title:</label>
+                <input type="text" class="form-control" id="title" placeholder="Enter title" name="title">
+            </div>
+            <div class="form-group mb-6">
+                <label for="excerpt">Excerpt:</label>
+                <textarea class="form-control" id="excerpt" placeholder="Enter excerpt" name="excerpt"></textarea>
+            </div>
+            <div class="form-group mb-6">
+                <label for="body">Body:</label>
+                <textarea class="form-control" id="body" placeholder="Enter body" name="body"></textarea>
+            </div>
+            <button class="btn btn-primary" id="butsave">Submit</button>
+            </div>
             <script>
                 $(document).ready(function() {
 
-                    $('#submit').on('click', function() {
+                    $('#butsave').on('click', function() {
                         var user_id = $('#user_id').val();
+                        var category_id = $('#category_id').val();
                         var slug = $('#slug').val();
+                        var title = $('#title').val();
                         var excerpt = $('#excerpt').val();
                         var body = $('#body').val();
-                        var title = $('#title').val();
-                        if (user_id != "" && slug != "" && excerpt != "" && body != "" && title != "") {
-                            $.ajax({
+
+                        $.ajax({
+                            url: "/posts",
+                            type: "POST",
+                            data: {
                                 _token: $("#csrf").val(),
-                                url: "/posts",
-                                type: "POST",
-                                data: {
-                                    type: 1,
-                                    user_id: user_id,
-                                    slug: slug,
-                                    excerpt: excerpt,
-                                    body: body,
-                                    title: title
-
-                                },
-                                cache: false,
-                                success: function(response) {
-                                    alert(response.statusCode);
-                                    if (response.statusCode == 200) {
-                                        alert("posts created");
-                                    } else if (response.statusCode == 201) {
-                                        alert("Error occured !");
-                                    }
-
+                                type: 1,
+                                user_id: user_id,
+                                category_id: category_id,
+                                slug: slug,
+                                title: title,
+                                excerpt: excerpt,
+                                body: body,
+                            },
+                            cache: false,
+                            success: function(dataResult) {
+                                console.log(dataResult);
+                                // var dataResult = JSON.parse(dataResult);
+                                // if (dataResult.statusCode == 200) {
+                                //     alert("posts are save");
+                                //     window.location = "/posts";
+                                // }
+                            },
+                            error: function(jqAjax, statusCode, errorThrown) {
+                                var err = JSON.parse(jqAjax.responseText);
+                                console.log(err.errors);
+                                if (err.errors.user_id[0] != "") {
+                                    alert(err.errors.user_id[0]);
                                 }
-                            });
-                        } else {
-                            alert('Please fill all the field !');
-                        }
+                                if (err.errors.category_id[0] != "") {
+                                    alert(err.errors.category_id[0]);
+                                }
+                                if (err.errors.slug[0] != "") {
+                                    alert(err.errors.slug[0]);
+                                }
+                                if (err.errors.title[0] != "") {
+                                    alert(err.errors.title[0]);
+                                }
+                                if (err.errors.excerpt[0] != "") {
+                                    alert(err.errors.excerpt[0]);
+                                } else(err.errors.body[0] != "") {
+                                    alert(err.errors.body[0]);
+                                }
+                            }
+                        });
                     });
                 });
             </script>

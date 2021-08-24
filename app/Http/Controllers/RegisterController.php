@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 use function GuzzleHttp\Promise\all;
 
@@ -16,21 +17,21 @@ class RegisterController extends Controller
     }
     public function store(Request $request)
     {
-       $request->validate([
+        $request->validate([
             'name' => 'required|max:255|min:5',
             'username' => 'required|min:3|max:255|unique:users,username',
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|min:7',
         ]);
 
-       // $attributes['password'] = bcrypt($attributes['password']);
-         User::create($request->all());
-        return response()->json([
-            "statusCode" => 200,
-            "message" => "your account has been created",
-        ]);
-       // Auth::login($user);
-
-        // return redirect('/register')->with('success','your account has been created');
+        // $attributes['password'] = bcrypt($attributes['password']);
+        User::create($request->all());
+        return json_encode(array(
+            "statusCode" => 200
+        ));
     }
+    // Auth::login($user);
+
+    // return redirect('/register')->with('success','your account has been created');
+
 }

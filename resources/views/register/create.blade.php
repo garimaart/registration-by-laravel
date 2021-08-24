@@ -2,99 +2,91 @@
     <section class="px-6 py-8">
         <main class="max-w-lg mx-auto mt-10 bg-gray-300 border border-gray-500 p-6 rounded-xl">
             <h1 class="text-center font-bold txt-ml">Register</h1>
-            <form method="POST" action="/register" class="mt-10">
-                @csrf
-                <div class="mb-6">
-                    <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
-                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="name">
-                        Nmae
-                    </label>
-                    <input class="border border-gray-400 ps-2 w-fall" type="text" name="name" id="name"
-                        value="{{ old('name') }}" required>
-                    @error('name')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-
-                    @enderror
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
-                <div class="mb-6">
-                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="username">
-                        username
-                    </label>
-                    <input class="border border-gray-400 ps-2 w-fall" type="text" name="username" id="username"
-                        value="{{ old('username') }}" required>
-                    @error('username')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+            @endif
 
-                    @enderror
-                </div>
-                <div class="mb-6">
-                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="email">
-                        email
-                    </label>
-                    <input class="border border-gray-400 ps-2 w-fall" type="email" name="email" id="email1" required>
-                    @error('email')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+            <div class="form-group mb-6">
+                <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
+                <label for="email">Name:</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name">
 
-                    @enderror
-                </div>
-
-                <div class="mb-6">
-                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="password">
-                        Password
-                    </label>
-                    <input class="border border-gray-400 ps-2 w-fall" type='password' name="password" id="password"
-                        required>
-                    @error('password')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-
-                    @enderror
-                </div>
-                <div class="mb-6">
-                    <button type="submit" id="submit"
-                        class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500">
-                        submit
-                    </button>
-                </div>
-            </form>
-
+            </div>
+            <div class="form-group mb-6">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email1" placeholder="Enter Email" name="email">
+                @if ($errors->has('email'))
+                    <span class="text-danger">{{ $errors->first('email') }}</span>
+                @endif
+            </div>
+            <div class="form-group mb-6">
+                <label for="email">username:</label>
+                <input type="text" class="form-control" id="username" placeholder="Enter username" name="username">
+            </div>
+            <div class="form-group">
+                <label for="email">password:</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
+            </div>
+            <button type="submit" class="btn btn-primary" id="butsave">Submit</button>
+            </div>
             <script>
                 $(document).ready(function() {
 
-                    $('#submit').on('click', function() {
+                    $('#butsave').on('click', function() {
                         var name = $('#name').val();
-                        var username = $('#username').val();
                         var email = $('#email1').val();
+                        var username = $('#username').val();
                         var password = $('#password').val();
-                        if (name != "" && email != "" && username != "" && password != "") {
-                            $.ajax({
+                        /*  $("#butsave").attr("disabled", "disabled"); */
+                        $.ajax({
+                            url: "/register",
+                            type: "POST",
+                            data: {
                                 _token: $("#csrf").val(),
-                                url: "/register",
-                                type: "POST",
-                                datatype: 'json',
-                                data: {
-                                    type: 1,
-                                    name: name,
-                                    username: username,
-                                    email: email,
-                                    password: password,
-                                },
-                                cache: false,
-                                success: function(response) {
-                                    console.log(response);
-                                    var response = JSON.parse(response);
-                                    if(response.statusCode == 200) {
-                                        console.log(response.message);
-                                        window.location.href = "/register";
-                                    } else if (response.statusCode == 201) {
-                                        alert("Error occured !");
-                                    }
-
+                                type: 1,
+                                name: name,
+                                email: email,
+                                username: username,
+                                password: password,
+                            },
+                            cache: false,
+                            success: function(dataResult) {
+                                console.log(dataResult);
+                                var dataResult = JSON.parse(dataResult);
+                                if (dataResult.statusCode == 200) {
+                                    alert("you are registered");
+                                    window.location = "/";
                                 }
-                            });
-                        } else {
-                            alert('Please fill all the field !');
-                        }
+                            },
+                            error: function(jqAjax, statusCode, errorThrown) {
+                                var err = JSON.parse(jqAjax.responseText);
+                                if (err.errors.email[0] != "") {
+                                    alert(err.errors.email[0]);
+                                }
+                                if (err.errors.name[0] != "") {
+                                    alert(err.errors.name[0]);
+                                }
+                                if (err.errors.username[0] != "") {
+                                    alert(err.errors.username[0]);
+                                } else(err.errors.password[0] != "") {
+                                    alert(err.errors.password[0]);
+                                }
+
+
+
+                            }
+
+                        });
+
                     });
+
                 });
             </script>
         </main>
