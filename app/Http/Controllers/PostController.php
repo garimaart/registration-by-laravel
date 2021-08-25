@@ -20,7 +20,7 @@ class PostController extends Controller
             'slug' => 'required|max:1000|unique:posts,slug',
             'title' => 'required|min:5|max:255',
             'excerpt' => 'required|max:255',
-            'body' => 'required|min:70|max:1000',
+            'body' => 'required|min:70|max:1000|unique:posts,body',
         ]);
 
         Post::create($request->all());

@@ -15,28 +15,34 @@
             <div class="form-group mb-6">
                 <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
                 <label for="text">Slug:</label>
-                <input type="text" class="form-control" id="slug" placeholder="Enter slug" name="slug">
+                <input type="text" class="form-control" id="slug" placeholder="Enter slug" name="slug"><br>
+                <label id="slugerror" style="color:red;"></label>
             </div>
             <div class="form-group mb-6">
                 <label for="user_id">User id:</label>
-                <input type="number" class="form-control" id="user_id" placeholder="Enter user_id" name="user_id">
+                <input type="number" class="form-control" id="user_id" placeholder="Enter user_id" name="user_id"><br>
+                <label id="user_iderror" style="color:red;"></label>
             </div>
             <div class="form-group mb-6">
                 <label for="category_id">Category id:</label>
                 <input type="number" class="form-control" id="category_id" placeholder="Enter category_id"
-                    name="category_id">
+                    name="category_id"><br>
+                <label id="category_iderror" style="color:red;"></label>
             </div>
             <div class="form-group mb-6">
                 <label for="title">Title:</label>
-                <input type="text" class="form-control" id="title" placeholder="Enter title" name="title">
+                <input type="text" class="form-control" id="title" placeholder="Enter title" name="title"><br>
+                <label id="titleerror" style="color:red;"></label>
             </div>
             <div class="form-group mb-6">
                 <label for="excerpt">Excerpt:</label>
-                <textarea class="form-control" id="excerpt" placeholder="Enter excerpt" name="excerpt"></textarea>
+                <textarea class="form-control" id="excerpt" placeholder="Enter excerpt" name="excerpt"></textarea><br>
+                <label id="excerpterror" style="color:red;"></label>
             </div>
             <div class="form-group mb-6">
                 <label for="body">Body:</label>
-                <textarea class="form-control" id="body" placeholder="Enter body" name="body"></textarea>
+                <textarea class="form-control" id="body" placeholder="Enter body" name="body"></textarea><br>
+                <label id="bodyerror" style="color:red;"></label>
             </div>
             <button class="btn btn-primary" id="butsave">Submit</button>
             </div>
@@ -75,24 +81,26 @@
                             },
                             error: function(jqAjax, statusCode, errorThrown) {
                                 var err = JSON.parse(jqAjax.responseText);
-                                console.log(err.errors);
-                                if (err.errors.user_id[0] != "") {
-                                    alert(err.errors.user_id[0]);
+                                if (err.errors.user_id != "") {
+                                    document.getElementById("user_iderror").innerHTML = err.errors
+                                        .user_id;
                                 }
-                                if (err.errors.category_id[0] != "") {
-                                    alert(err.errors.category_id[0]);
+                                if (err.errors.category_id != "") {
+                                    document.getElementById("category_iderror").innerHTML = err.errors
+                                        .category_id;
                                 }
-                                if (err.errors.slug[0] != "") {
-                                    alert(err.errors.slug[0]);
+                                if (err.errors.slug != "") {
+                                    document.getElementById("slugerror").innerHTML = err.errors.slug;
                                 }
-                                if (err.errors.title[0] != "") {
-                                    alert(err.errors.title[0]);
+                                if (err.errors.title != "") {
+                                    document.getElementById("titleerror").innerHTML = err.errors.title;
                                 }
-                                if (err.errors.excerpt[0] != "") {
-                                    alert(err.errors.excerpt[0]);
-                                } else(err.errors.body[0] != "") {
-                                    alert(err.errors.body[0]);
-                                }
+                                if (err.errors.excerpt != "") {
+                                    document.getElementById("excerpterror").innerHTML = err.errors
+                                        .excerpt;
+                                } else(err.errors.body != "")
+                                document.getElementById("bodyerror").innerHTML = err.errors.body;
+
                             }
                         });
                     });

@@ -16,23 +16,23 @@
             <div class="form-group mb-6">
                 <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
                 <label for="email">Name:</label>
-                <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name">
-
+                <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name"><br>
+                <label id="nameerror" style="color:red;"></label>
             </div>
             <div class="form-group mb-6">
                 <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email1" placeholder="Enter Email" name="email">
-                @if ($errors->has('email'))
-                    <span class="text-danger">{{ $errors->first('email') }}</span>
-                @endif
+                <input type="email" class="form-control" id="email1" placeholder="Enter Email" name="email"><br>
+                <label id="emailerror" style="color:red;"></label>
             </div>
             <div class="form-group mb-6">
                 <label for="email">username:</label>
-                <input type="text" class="form-control" id="username" placeholder="Enter username" name="username">
+                <input type="text" class="form-control" id="username" placeholder="Enter username" name="username"><br>
+                <label id="usernameerror" style="color:red;"></label>
             </div>
             <div class="form-group">
                 <label for="email">password:</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
+                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password"><br>
+                <label id="passworderror" style="color:red;"></label>
             </div>
             <button type="submit" class="btn btn-primary" id="butsave">Submit</button>
             </div>
@@ -59,25 +59,22 @@
                             cache: false,
                             success: function(dataResult) {
                                 console.log(dataResult);
-                                var dataResult = JSON.parse(dataResult);
-                                if (dataResult.statusCode == 200) {
-                                    alert("you are registered");
+                                alert("you are registered");
                                     window.location = "/";
-                                }
                             },
                             error: function(jqAjax, statusCode, errorThrown) {
                                 var err = JSON.parse(jqAjax.responseText);
-                                if (err.errors.email[0] != "") {
-                                    alert(err.errors.email[0]);
+                                if (err.errors.email != "") {
+                                    document.getElementById("emailerror").innerHTML=err.errors.email;
                                 }
-                                if (err.errors.name[0] != "") {
-                                    alert(err.errors.name[0]);
+                                if (err.errors.name != "") {
+                                   document.getElementById("nameerror").innerHTML=err.errors.name;
                                 }
-                                if (err.errors.username[0] != "") {
-                                    alert(err.errors.username[0]);
-                                } else(err.errors.password[0] != "") {
-                                    alert(err.errors.password[0]);
-                                }
+                                if (err.errors.username != "") {
+                                    document.getElementById("usernameerror").innerHTML=err.errors.username;
+                                } else(err.errors.password != "")
+                                document.getElementById("passworderror").innerHTML=err.errors.password;
+
 
 
 
