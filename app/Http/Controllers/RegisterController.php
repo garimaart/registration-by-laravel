@@ -29,7 +29,16 @@ class RegisterController extends Controller
         return json_encode(array(
             "statusCode" => 200
         ));
+        
     }
+    public function ShowUserlist(){
+
+
+        $users = User::all();
+
+        return view('listing', compact('users'));
+    }
+
     // Auth::login($user);
 
     // return redirect('/register')->with('success','your account has been created');

@@ -27,6 +27,14 @@ class PostController extends Controller
         return json_encode(array(
             "statusCode" => 200
         ));
+
         //return redirect('/posts');
+    }
+    public function ShowUserlist(){
+
+
+        $posts = Post::all();
+
+        return view('list', compact('posts'));
     }
 }

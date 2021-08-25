@@ -12,14 +12,16 @@
                 </ul>
             </div>
         @endif
-        <div class="form-group">
+        <div class="form-group mb-6">
             <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
             <label for="email">Email:</label>
             <input type="email" class="form-control" id="email1" placeholder="Enter Email" name="email">
+            <label id="emailerror" style="color:red;"></label>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-6">
             <label for="email">password:</label>
             <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
+            <label id="passworderror" style="color:red;"></label>
         </div>
         <button type="submit" class="btn btn-primary" id="butsave">Submit</button>
         </div>
@@ -29,7 +31,6 @@
                 $('#butsave').on('click', function() {
                     var email = $('#email1').val();
                     var password = $('#password').val();
-                    if (email != "" &&  password != "") {
                         $.ajax({
                             url: "/login",
                             type: "POST",
@@ -42,16 +43,19 @@
                             cache: false,
                             success: function(dataResult) {
                                 console.log(dataResult);
-                                var dataResult = JSON.parse(dataResult);
-                                if (dataResult.statusCode == 200) {
-                                    alert("you are login");
+                                alert("you are login");
                                     window.location = "/";
+                            },
+                            error: function(jqAjax, statusCode, errorThrown) {
+                                var err = JSON.parse(jqAjax.responseText);
+                                console.log(err.errors);
+                                if (err.errors.email != "") {
+                                    document.getElementById("emailerror").innerHTML=err.errors.email;
                                 }
-
+                                else(err.errors.password)
+                                   document.getElementById("passworderror").innerHTML=err.errors.password;
                             }
                         });
-                    } else
-                        alert('PLEASE FILL ALL THE FIELD !');
                     });
             });
         </SCRIPT>

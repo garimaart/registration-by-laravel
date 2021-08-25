@@ -19,7 +19,7 @@ class SessionController extends Controller
     {
         $request->validate([
             'email' => 'required|exists:users,email',
-            'password' => 'required|min:7',
+            'password' => 'required|min:7|exists:users,password',
         ]);
         /*$user = User::where('email', request('email'))->first();
         if (!Hash::check(request('password'), $user->password)) {
@@ -38,10 +38,9 @@ class SessionController extends Controller
             }
         }*/
         User::create($request->all());
-        return response()->json([
-            "statusCode" => 200,
-            "message" => "your account has been found",
-        ]);
+        return json_encode(array(
+            "statusCode" => 200
+        ));
     }
     public function destroy()
     {
