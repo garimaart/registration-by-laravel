@@ -75,9 +75,6 @@
                                 } else(err.errors.password != "")
                                 document.getElementById("passworderror").innerHTML=err.errors.password;
 
-
-
-
                             }
 
                         });

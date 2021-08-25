@@ -78,5 +78,8 @@ Route::post('posts', [PostController::class, 'store'])->middleware('guest');
 Route::get('login', [SessionController::class, 'create'])->middleware('guest');
 Route::post('login', [SessionController::class, 'store'])->middleware('guest');
 Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth');
-Route::get("listing",[RegisterController::class,'ShowUserlist']);
-Route::get("list",[PostController::class,'ShowUserlist']);
+Route::get("listing",[RegisterController::class,'index']);
+Route::get("list",[PostController::class,'index']);
+Route::post("list",[PostController::class,'userdata']);
+Route::post("listing",[RegisterController::class,'userdata']);
+

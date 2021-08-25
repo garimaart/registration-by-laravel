@@ -48,7 +48,6 @@
                             },
                             error: function(jqAjax, statusCode, errorThrown) {
                                 var err = JSON.parse(jqAjax.responseText);
-                                console.log(err.errors);
                                 if (err.errors.email != "") {
                                     document.getElementById("emailerror").innerHTML=err.errors.email;
                                 }

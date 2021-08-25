@@ -6,7 +6,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
-<body style="font-family: Open Sans, sans-serif">
+<body style="font-family: Open Sans, sans-serif;" >
     <section class="px-6 py-8">
         <nav class="md:flex md:justify-between md:items-center">
             <div>

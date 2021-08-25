@@ -30,11 +30,12 @@ class PostController extends Controller
 
         //return redirect('/posts');
     }
-    public function ShowUserlist(){
-
-
-        $posts = Post::all();
-
-        return view('list', compact('posts'));
-    }
+   public function index()
+  {
+      return view('list');
+  }
+  public function userdata(){
+    $userData = Post::get();
+    return json_encode(array('data'=>$userData));
+}
 }

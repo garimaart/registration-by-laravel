@@ -1,41 +1,48 @@
 <x-layout>
-    <table class="table table-hover">
-
-        <thead style=" border: 1px solid black;">
-    
-          <th>id</th>
-    
-          <th>Name</th>
-    
-          <th>username</th>
-          <th>email</th>
-          <th>Created at</th>
-          <th>Updated at</th>
-    
-        </thead>
-    
-        <tbody style=" border: 1px solid black;">
-    @foreach($users as $user)
-    
-            <tr>
-    
-              <td style=" border: 1px solid black;">{{$user->id}} </td>
-    
-              <td style=" border: 1px solid black;">{{$user->name}} </td>
-    
-              <td style=" border: 1px solid black;">{{$user->username}} </td>
-    
-              <td style=" border: 1px solid black;">{{$user->email}} </td>
-    
-              <td style=" border: 1px solid black;">{{$user->created_at}} </td>
-    
-              <td style=" border: 1px solid black;">{{$user->updated_at}} </td>
-    
-    
-            </tr>
-    @endforeach
-    
-        </tbody>
-    
-    </table>
-</x-layout>
+  <table class="table table-bordered table-sm">
+  
+    <thead>
+     <tr>
+         <th>No</th>
+         <th>Name</th>
+         <th>Username</th>
+         <th>email</th>
+          <th>created at</th>
+          <th>updated at</th>
+         <th width="280px">Action</th>
+     </tr>
+    </thead>
+    <tbody id="bodyData">
+  
+    </tbody>  
+  </table>
+   <script>
+  $(document).ready(function() {
+          $.ajax({
+              url: "/listing",
+              type: "POST",
+              data:{ 
+                  _token:'{{ csrf_token() }}'
+              },
+              cache: false,
+              dataType: 'json',
+              success: function(dataResult){
+                  console.log(dataResult);
+                  var resultData = dataResult.data;
+                  var bodyData = '';
+                  $.each(resultData,function(index,row){
+                      //var editUrl = url+'/'+row.id+"/edit";
+                      bodyData+="<tr>"
+                      bodyData+="<td>"+ row.id++ +"</td><td>"+row.name+"</td><td>"+row.username+"</td><td>"+row.email+"</td>"
+                      +"<td>"+row.created_at+"</td><td>"+row.updated_at+"</td><td><a class='btn btn-primary' href='#'>Edit</a>" 
+                      +"<button class='btn btn-danger delete' value='"+row.id+"' style='margin-left:20px;'>Delete</button></td>";
+                      bodyData+="</tr>";
+                      
+                  })
+                  $("#bodyData").append(bodyData);
+              }
+          });
+  
+  });
+  </script>
+  </x-layout>

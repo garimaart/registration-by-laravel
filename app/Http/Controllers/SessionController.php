@@ -37,7 +37,6 @@ class SessionController extends Controller
                 ]);
             }
         }*/
-        User::create($request->all());
         return json_encode(array(
             "statusCode" => 200
         ));
