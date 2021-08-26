@@ -9,7 +9,7 @@
        <th>Slug</th>
         <th>title</th>
         <th>Body</th>
-       <th width="280px">Action</th>
+       <th width="280px">excerpt</th>
    </tr>
   </thead>
   <tbody id="bodyData">
@@ -28,7 +28,7 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(dataResult){
                 console.log(dataResult);
-                var resultData = dataResult.data;
+                var resultData = dataResult;
                 var bodyData = '';
                 var i=1;
                 $.each(resultData,function(index,row){

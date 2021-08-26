@@ -46,6 +46,13 @@
             </div>
             <button class="btn btn-primary" id="butsave">Submit</button>
             </div>
+            <div id='commentform'>
+                <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
+                <label>comment</label>
+                <textarea id='comment' class='form-control' placeholder="comment" name="comment"></textarea>
+                <input type="hidden" name="post_id" />
+                <button class="btn btn-primary" id='comments'>comment</button>
+            </div>
             <script>
                 $(document).ready(function() {
 
@@ -103,6 +110,29 @@
 
                             }
                         });
+                    });
+                    $(document).on('click', '#comments', function() {
+                        var id = $(this).val();
+                        console.log(id);
+                        var comment = $('#comment').val();
+                        if ($('#comment').val() == '') {
+                            alert('Please write a Comment First!');
+                        } else {
+                            $.ajax({
+                                type: 'POST',
+                                url: 'posts',
+                                ata: {
+                                    _token: $("#csrf").val(),
+                                    type: 1,
+                                    comment: comment,
+                                },
+                                success: function(dataResult) {
+                                    console.log(dataResult);
+                                    //getComment(id);
+                                    // $('#commentForm_' + id)[0].reset();
+                                },
+                            });
+                        }
                     });
                 });
             </script>

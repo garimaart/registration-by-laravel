@@ -10,8 +10,8 @@ class Post extends Model
 
     use HasFactory;
 
-    protected $fillable=[
-       'category_id','user_id', 'slug','title','excerpt','body',
+    protected $fillable = [
+        'category_id', 'user_id', 'slug', 'title', 'excerpt', 'body',
     ];
 
     protected $with = ['category', 'author'];
@@ -30,5 +30,9 @@ class Post extends Model
     {
 
         return $this->belongsTo(User::class, 'user_id');
+    }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

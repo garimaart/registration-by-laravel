@@ -23,8 +23,6 @@ class RegisterController extends Controller
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|min:7|unique:users,password',
         ]);
-
-        // $attributes['password'] = bcrypt($attributes['password']);
         User::create($request->all());
         return json_encode(array(
             "statusCode" => 200
@@ -38,6 +36,6 @@ class RegisterController extends Controller
     public function userdata()
     {
         $userData = User::get();
-        return json_encode(array('data'=>$userData));
+        return $userData;
     }
 }

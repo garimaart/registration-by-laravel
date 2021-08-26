@@ -9,7 +9,7 @@
          <th>email</th>
           <th>created at</th>
           <th>updated at</th>
-         <th width="280px">Action</th>
+         <th width="200px">Action</th>
      </tr>
     </thead>
     <tbody id="bodyData">
@@ -28,13 +28,12 @@
               dataType: 'json',
               success: function(dataResult){
                   console.log(dataResult);
-                  var resultData = dataResult.data;
+                  var resultData = dataResult;
                   var bodyData = '';
                   $.each(resultData,function(index,row){
-                      //var editUrl = url+'/'+row.id+"/edit";
                       bodyData+="<tr>"
                       bodyData+="<td>"+ row.id++ +"</td><td>"+row.name+"</td><td>"+row.username+"</td><td>"+row.email+"</td>"
-                      +"<td>"+row.created_at+"</td><td>"+row.updated_at+"</td><td><a class='btn btn-primary' href='#'>Edit</a>" 
+                      +"<td>"+row.created_at+"</td><td>"+row.updated_at+"</td><td style='margin-right:20px;'><a class='btn btn-primary' href='#'>Edit</a>" 
                       +"<button class='btn btn-danger delete' value='"+row.id+"' style='margin-left:20px;'>Delete</button></td>";
                       bodyData+="</tr>";
                       
