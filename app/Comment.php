@@ -15,7 +15,7 @@ class Comment extends Model
      *
      * @var array
      */
-    protected $fillable = ['post_id',  'comment'];
+    protected $fillable = ['post_id', 'comment'];
 
     /**
      * The belongs to Relationship

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BlogPostController extends Controller
 {
@@ -21,6 +22,7 @@ class BlogPostController extends Controller
     {
         $data = new \App\Comment;
         $data->post_id = $request->post;
+        $data->user_id = $request->user;
         $data->comment = $request->comment;
         $data->save();
         return response()->json([

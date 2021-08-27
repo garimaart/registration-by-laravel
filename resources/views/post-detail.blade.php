@@ -17,7 +17,7 @@
                 <div class="add-comment mb-3">
                     @csrf
                     <textarea class="form-control comment" placeholder="Enter Comment"></textarea>
-                    <button data-post="{{ $post->id }}" class="btn btn-dark btn-sm mt-2 save-comment">Submit</button>
+                    <button data-post="{{ $post->id }}" data-user="{{ $post->user_id }}" class="btn btn-dark btn-sm mt-2 save-comment">Submit</button>
                 </div>
                 <hr/>
                 <div class="comments"> 
@@ -41,6 +41,7 @@
 $(".save-comment").on('click',function(){
     var _comment=$(".comment").val();
     var _post=$(this).data('post');
+    var _user=$(this).data('user');
     var vm=$(this);
     $.ajax({
         url:"{{ url('save-comment') }}",
@@ -49,6 +50,7 @@ $(".save-comment").on('click',function(){
         data:{
             comment:_comment,
             post:_post,
+            user:_user,
             _token:"{{ csrf_token() }}"
         },
         beforeSend:function(){
