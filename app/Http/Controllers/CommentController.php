@@ -4,22 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use App\Post;
+use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public function store(Request $request)
+    public function index(Post $post)
     {
-        $comment = new Comment;
+        return response()->json($post->comments()->with('user')->latest()->get());
+    }
 
-        $comment->comment = $request->comment;
+    public function storeComments(Request $request)
+    {
+        $post = Post::all();
+        $this->validate($request, [
+            'comment' => 'required|max:1000'
+        ]);
 
-        $comment->user()->associate($request->user());
-
-        $post = Post::find($request->post_id);
-
+        $comment = new Comment();
+        $comment->body = $request->comment;
+        $comment->userid = Auth::user()->id;
+        $post = new Post();
+        $post->id = $request->post_id;
         $post->comments()->save($comment);
-
-        return back();
+        return view('posts', compact('post'));
     }
 }

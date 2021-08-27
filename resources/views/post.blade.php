@@ -1,18 +1,18 @@
-@extends('layout')
-@section('content')
-    
-    <article>
-      
-        <div>
-            <h1>
-                {!!$post->title!!}
-            </h1>
-    <p>By <a href="/authors/{{$post->author->username}}"></a>{{$post->author->name}}
-        
-        in <a href="/categories/{{$post->category->slug}}">{{$post->category->name}}</a></p>
-            
-            <p>{!!$post->body!!}</p>
-        </div>
-    </article>
-
-@endsection
+<x-layout>
+    <div class="container mt-3">
+        <table class="table table-bordered">
+            <tr>
+                <th>title</th>
+                <th>slug</th>
+            </tr>
+            @isset($posts)
+                @foreach ($posts as $post)
+                    <tr>
+                        <td><a href="{{ url('detail/' . $post->id) }}">{{ $post->title }}</a></td>
+                        <td>{{ Str::words($post->body, 5, '...') }}</td>
+                    </tr>
+                @endforeach
+            @endisset
+        </table>
+    </div>
+</x-layout>

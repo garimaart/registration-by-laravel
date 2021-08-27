@@ -10,9 +10,9 @@ use Symfony\Component\Console\Input\Input;
 
 class PostController extends Controller
 {
+
     public function create()
     {
-        $posts = Post::all();
         return view('posts.create');
     }
     public function store(Request $request)
@@ -55,6 +55,6 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-        return view('posts.show', compact('post'));
+        return view('posts.create', compact('post'));
     }
 }

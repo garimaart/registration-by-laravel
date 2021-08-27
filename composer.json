@@ -15,6 +15,7 @@
         "itsgoingd/clockwork": "^4.0",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
+        "laravel/ui": "^3.3",
         "sentry/sentry-laravel": "^2.8"
     },
     "require-dev": {

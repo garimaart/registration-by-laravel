@@ -15,29 +15,20 @@ class Comment extends Model
      *
      * @var array
      */
-    protected $fillable = ['userid', 'postid',  'comment'];
+    protected $fillable = ['post_id',  'comment'];
 
     /**
      * The belongs to Relationship
      *
      * @var array
      */
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'userid', 'id');
-    }
-
-    /**
-     * The has Many Relationship
-     *
-     * @var array
-     */
     public function post()
     {
-        return $this->belongsTo(Post::class, 'postid', 'id');
+        return $this->belongsTo('App\Post');
     }
-    public function replies()
+
+    public function user()
     {
-        return $this->hasMany(Comment::class, 'parentid');
+        return $this->belongsTo('App\User');
     }
 }

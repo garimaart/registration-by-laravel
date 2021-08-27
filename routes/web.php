@@ -83,4 +83,6 @@ Route::get("listing", [RegisterController::class, 'index']);
 Route::get("list", [PostController::class, 'index']);
 Route::post("list", [PostController::class, 'userdata']);
 Route::post("listing", [RegisterController::class, 'userdata']);
-Route::post('posts', [CommentController::class, 'store']);
+Route::get('post', 'BlogPostController@index');
+Route::get('detail/{id}', 'BlogPostController@detail');
+Route::post('save-comment', 'BlogPostController@save_comment');
