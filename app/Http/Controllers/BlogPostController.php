@@ -12,7 +12,6 @@ class BlogPostController extends Controller
         $posts = \App\Post::all();
         return view('post', ['post' => $posts]);
     }
-    // Post Detail
     public function detail(Request $request, $id)
     {
         $post = \App\Post::find($id);

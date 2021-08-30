@@ -44,7 +44,6 @@
                         var email = $('#email1').val();
                         var username = $('#username').val();
                         var password = $('#password').val();
-                        /*  $("#butsave").attr("disabled", "disabled"); */
                         $.ajax({
                             url: "/register",
                             type: "POST",

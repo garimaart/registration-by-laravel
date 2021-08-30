@@ -21,22 +21,6 @@ class SessionController extends Controller
             'email' => 'required|exists:users,email',
             'password' => 'required|min:7|exists:users,password',
         ]);
-        /*$user = User::where('email', request('email'))->first();
-        if (!Hash::check(request('password'), $user->password)) {
-            return redirect('login');
-        } else {
-            if (!Auth::attempt($attributes)) {
-                session()->regenerate();
-                //return redirect('/')->with('success', 'welcome back!');
-                return json_encode(array(
-                    "statusCode" => 200
-                ));
-            } else {
-                throw ValidationException::withMessages([
-                    'email' => 'your provided credintials could not match'
-                ]);
-            }
-        }*/
         return json_encode(array(
             "statusCode" => 200
         ));

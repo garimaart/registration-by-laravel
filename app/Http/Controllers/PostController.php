@@ -30,8 +30,6 @@ class PostController extends Controller
         return json_encode(array(
             "statusCode" => 200
         ));
-
-        //return redirect('/posts');
     }
     public function index()
     {
@@ -57,4 +55,10 @@ class PostController extends Controller
         $post = Post::find($id);
         return view('posts.create', compact('post'));
     }
+    public function destroy($id)
+  {
+    $post = Post::find($id)->delete();
+
+    return response()->json(['success'=>'Post Deleted successfully']);
+  }
 }

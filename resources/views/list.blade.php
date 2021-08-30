@@ -44,6 +44,52 @@
                 }
             });
 
+            function editPost(event) {
+                var id = $(event).data("id");
+                let _url = `/posts/${id}`;
+                $('#titleError').text('');
+                $('#descriptionError').text('');
+
+                $.ajax({
+                    url: _url,
+                    type: "GET",
+                    success: function(response) {
+                        if (response) {
+                            $("#category_id").val(response.category_id);
+                            $("#user_id").val(response.user_id);
+                            $("#slug").val(response.slug);
+                            $("#title").val(response.title);
+                            $("#body").val(response.body);
+                            $("#excerpt").val(response.excerpt);
+                            $('#post-modal').modal('show');
+                        }
+                    }
+                });
+            }
+
+            function editPost(event) {
+                var id = $(event).data("id");
+                let _url = `/posts/${id}`;
+                $('#titleError').text('');
+                $('#descriptionError').text('');
+
+                $.ajax({
+                    url: _url,
+                    type: "GET",
+                    success: function(response) {
+                        if (response) {
+                            $("#category_id").val(response.category_id);
+                            $("#user_id").val(response.user_id);
+                            $("#slug").val(response.slug);
+                            $("#title").val(response.title);
+                            $("#body").val(response.body);
+                            $("#excerpt").val(response.excerpt);
+                            $('#post-modal').modal('show');
+                        }
+                    }
+                });
+            }
+
         });
     </script>
 </x-layout>
