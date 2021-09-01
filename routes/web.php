@@ -86,3 +86,5 @@ Route::post("listing", [RegisterController::class, 'userdata']);
 Route::get('post', 'BlogPostController@index');
 Route::get('detail/{id}', 'BlogPostController@detail');
 Route::post('save-comment', 'BlogPostController@save_comment');
+Route::get('list/{id}', 'PostController@destroy');
+Route::post('edit-post', [PostController::class, 'edit']);

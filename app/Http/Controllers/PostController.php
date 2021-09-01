@@ -6,11 +6,11 @@ use App\Comment;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Input\Input;
 
 class PostController extends Controller
 {
-
     public function create()
     {
         return view('posts.create');
@@ -55,10 +55,24 @@ class PostController extends Controller
         $post = Post::find($id);
         return view('posts.create', compact('post'));
     }
-    public function destroy($id)
-  {
-    $post = Post::find($id)->delete();
+    public function edit(Request $request)
+    {   
+        $where = array('id' => $request->id);
+        $post  = Post::where($where)->first();
+      
+        return Response()->json($post);
+    }
+      
+    
+    public function destroy($id){
+   
+        Post::find($id)->delete($id);
+      
+        return response()->json([
+            'success' => 'Record deleted successfully!'
+        ]);
+    }
+    
 
-    return response()->json(['success'=>'Post Deleted successfully']);
-  }
 }
+
