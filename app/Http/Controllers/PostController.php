@@ -26,7 +26,7 @@ class PostController extends Controller
             'body' => 'required|min:70|max:1000|unique:posts,body',
         ]);
 
-        Post::create($request->all());
+        Post::createorupdate($request->all());
         return json_encode(array(
             "statusCode" => 200
         ));

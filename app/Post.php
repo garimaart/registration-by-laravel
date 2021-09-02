@@ -40,4 +40,6 @@ class Post extends Model
     {
         return $this->hasMany('App\Comment')->orderBy('id', 'desc');
     }
+
+    //commentUsers -> lists all the users that have commented on this post
 }

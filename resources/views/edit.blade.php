@@ -19,10 +19,6 @@
     </div>
 @endif
 
-{{-- <form action="{{ route('userData.update',$userData->id) }}" method="POST"> --}}
-    {{-- {{ csrf_field() }}
-    {{ method_field('PATCH') }} --}}
-
      <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
@@ -36,14 +32,12 @@
                 <input type="text" class="form-control" id="title" name="title" value ="{{ $post->title }}" placeholder="title">
             </div>
         </div>
-        <!-- phone -->
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>body:</strong>
                 <textarea type="text" class="form-control" id ="body" name="body" value ="{{ $post->body }}" placeholder="body"></textarea>
             </div>
         </div>
-        <!-- city-->
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>excerpt:</strong>
@@ -57,7 +51,6 @@
         </div>
     </div>
 
-{{-- </form> --}}
 <script>
     $(document).ready(function(){
 
