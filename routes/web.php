@@ -90,4 +90,5 @@ Route::post('save-comment', 'BlogPostController@save_comment');
 Route::get('list/{id}', 'PostController@destroy');
 Route::post('edit-post', [PostController::class, 'edit']);
 Route::get("customer", [CustomerController::class, 'create']);
+Route::post("customer",[CustomerController::class,'store']);
 //Route::post('list', [PostController::class, 'store1']);

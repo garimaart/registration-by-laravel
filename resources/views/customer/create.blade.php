@@ -15,15 +15,21 @@
 
             <div class="form-group mb-6">
                 <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
-                <label for="email">First Name:</label>
+                <label for="email">site id:</label>
+                <input type="text" class="form-control" id="site_id" placeholder="Enter site id" name="site_id"><br>
+                <label id="siteerror" style="color:red;"></label>
+            </div>
+            <div class="form-group mb-6">
+                <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
+                <label for="email">first Name:</label>
                 <input type="text" class="form-control" id="first_name" placeholder="Enter first Name" name="first_name"><br>
-                <label id="nameerror" style="color:red;"></label>
+                <label id="firstnameerror" style="color:red;"></label>
             </div>
             <div class="form-group mb-6">
                 <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
                 <label for="email">Last Name:</label>
                 <input type="text" class="form-control" id="last_name" placeholder="Enter last Name" name="last_name"><br>
-                <label id="nameerror" style="color:red;"></label>
+                <label id="lastnameerror" style="color:red;"></label>
             </div>
             <div class="form-group mb-6">
                 <label for="email">Email:</label>
@@ -33,7 +39,7 @@
             <div class="form-group mb-6">
                 <label for="email">Phone:</label>
                 <input type="number" class="form-control" id="phone" placeholder="Enter phone number" name="phone_no"><br>
-                <label id="usernameerror" style="color:red;"></label>
+                <label id="phoneerror" style="color:red;"></label>
             </div>
             <div class="form-group">
                 <label for="email">password:</label>
@@ -42,6 +48,44 @@
             </div>
             <button type="submit" class="btn btn-primary" id="butsave">Submit</button>
             </div>
+            <script>
+                $(document).ready(function() {
+
+$('#butsave').on('click', function() {
+    var site_id= $('#site_id').val();
+    var first_name = $('#first_name').val();
+    var last_name = $('#last_name').val();
+    var email = $('#email').val();
+    var phone = $('#phone').val();
+    var password = $('#password').val();
+
+    $.ajax({
+        url: "/customer",
+        type: "POST",
+        data: {
+            _token: $("#csrf").val(),
+            type: 1,
+            site_id: site_id,
+            first_name: first_name,
+            last_name: last_name,
+             email: email,
+            phone: phone,
+            password: password,
+        },
+        cache: false,
+        success: function(dataResult) {
+            console.log(dataResult);
+        },
+        error: function(jqAjax, statusCode, errorThrown) {
+            var err = JSON.parse(jqAjax.responseText);
+            console.log(err);
+
+        }
+    });
+});
+
+});
+            </script>
         </main>
     </section>
 </x-layout>
