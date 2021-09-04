@@ -16,7 +16,8 @@
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.3",
-        "sentry/sentry-laravel": "^2.8"
+        "sentry/sentry-laravel": "^2.8",
+        "twbs/bootstrap": "5.1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

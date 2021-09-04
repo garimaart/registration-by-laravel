@@ -92,3 +92,7 @@ Route::post('edit-post', [PostController::class, 'edit']);
 Route::get("customer", [CustomerController::class, 'create']);
 Route::post("customer",[CustomerController::class,'store']);
 //Route::post('list', [PostController::class, 'store1']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -15,13 +15,10 @@ class CustomerController extends Controller
         $request->validate([
             'site_id' => 'required|max:10',
             'first_name' => 'required|max:255',
-            'last_name' => 'required|max:1000|unique:posts,slug',
-            'email' => 'required|unique:customers,email',
+            'last_name' => 'required|max:255',
+            'email' => 'required',
             'phone' => 'required|min:10',
-            'password' => 'required|
-            min:6|
-            regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/|
-            confirmed',           
+            'password' => 'required|string|min:6|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
         ]);
 
         Customer::createorupdate($request->all());
