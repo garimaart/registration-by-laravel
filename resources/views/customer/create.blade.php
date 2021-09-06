@@ -1,17 +1,9 @@
 <x-layout>
     <section class="px-6 py-8">
-        <main class="max-w-lg mx-auto mt-10 bg-gray-300 border border-gray-500 p-6 rounded-xl">
-            <h1 class="text-center font-bold txt-ml">Customer</h1>
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+        <main >
+            <h1 class=" font-bold txt-ml">Customer</h1>
+            <br>
+            <h1>credentials</h1>
 
             <div class="form-group mb-6">
                 <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
@@ -19,6 +11,24 @@
                 <input type="text" class="form-control" id="site_id" placeholder="Enter site id" name="site_id"><br>
                 <label id="siteerror" style="color:red;"></label>
             </div>
+            <div class="form-group mb-6">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email1" placeholder="Enter Email" name="email"><br>
+                <label id="emailerror" style="color:red;"></label>
+            </div>
+            <div class="form-group">
+                <label for="email">password:</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter password"
+                    name="password"><br>
+                <label id="passworderror" style="color:red;"></label>
+            </div><br>
+            <div class="form-group">
+                <label for="email">confirm  password:</label>
+                <input type="password" class="form-control" id="cpassword" placeholder="Enter confirm password"
+                    name="password"><br>
+                <label id="passworderror" style="color:red;"></label>
+            </div><br>
+            <h1>customer details</h1><br>
             <div class="form-group mb-6">
                 <input type="hidden" name="_token" id="csrf" value="{{ Session::token() }}">
                 <label for="email">first Name:</label>
@@ -31,12 +41,7 @@
                 <label for="email">Last Name:</label>
                 <input type="text" class="form-control" id="last_name" placeholder="Enter last Name"
                     name="last_name"><br>
-                <label id="lastnameerror" style="color:red;"></label>
-            </div>
-            <div class="form-group mb-6">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email1" placeholder="Enter Email" name="email"><br>
-                <label id="emailerror" style="color:red;"></label>
+                <label id="lastnamerror" style="color:red;"></label>
             </div>
             <div class="form-group mb-6">
                 <label for="email">Phone:</label>
@@ -44,12 +49,73 @@
                     name="phone_no"><br>
                 <label id="phoneerror" style="color:red;"></label>
             </div>
-            <div class="form-group">
-                <label for="email">password:</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter password"
-                    name="password"><br>
-                <label id="passworderror" style="color:red;"></label>
-            </div>
+            <table>
+                <tr>
+                    <th>shipping address</th>
+                    <th>billing address</th>
+                </tr>
+                <tr>
+                    <td>
+                        <label>company</label>
+                        <input type="text" id="company" placeholder="enter company">
+                    </td>
+                    <td>
+                        <label>company</label>
+                        <input type="text" id="company" placeholder="company">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>location</label>
+                        <input type="text" id="location" placeholder="enter location">
+                    </td>
+                    <td>
+                        <label>location</label>
+                        <input type="text" id="location" placeholder="enter location">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Address line 1</label>
+                        <input type="text" id="address line1" placeholder="enter address line 1">
+                    </td>
+                    <td>
+                        <label>Address line 1</label>
+                        <input type="text" id="address line 1" placeholder="enter address line 1">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Address line2</label>
+                        <input type="text" id="address line 2" placeholder="enter address line 2">
+                    </td>
+                    <td>
+                        <label>Address line2</label>
+                        <input type="text" id="address line 2" placeholder="enter address line 2">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>country</label>
+                        <input type="text" id="country" placeholder="enter country">
+                    </td>
+                    <td>
+                        <label>country</label>
+                        <input type="text" id="country" placeholder="enter country">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>state</label>
+                        <input type="text" id="state" placeholder="enter state">
+                    </td>
+                    <td>
+                        <label>state</label>
+                        <input type="text" id="state" placeholder="enter state">
+                    </td>
+                </tr>
+
+            </table>
             <button type="submit" class="btn btn-primary" id="butsave">Submit</button>
             </div>
             <script>
@@ -61,6 +127,7 @@
                         var last_name = $('#last_name').val();
                         var email = $('#email').val();
                         var phone = $('#phone').val();
+                        var cpassword=$('#cpassword').val();
                         var password = $('#password').val();
 
                         $.ajax({
@@ -85,6 +152,8 @@
                                 console.log(err);
                                 if (err.errors.site_id != "") {
                                     document.getElementById("siteerror").innerHTML = err.errors.site_id;
+                                }if (err.errors.last_name != "") {
+                                    document.getElementById("lastnamerror").innerHTML = err.errors.last_name;
                                 }
                                 if (err.errors.first_name != "") {
                                     document.getElementById("firstnameerror").innerHTML = err.errors.first_name;

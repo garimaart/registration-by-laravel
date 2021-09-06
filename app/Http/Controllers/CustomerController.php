@@ -21,9 +21,9 @@ class CustomerController extends Controller
             'password' => 'required|string|min:6|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
         ]);
 
-        Customer::createorupdate($request->all());
+        Customer::create($request->all());
         return json_encode(array(
-            "statusCode" => 200
+            "statusCode" => 200,
         ));
       }
 }
