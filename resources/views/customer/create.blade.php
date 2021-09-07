@@ -1,6 +1,6 @@
 <x-layout>
     <section class="px-6 py-8">
-        <main >
+        <main>
             <h1 class=" font-bold txt-ml">Customer</h1>
             <br>
             <h1>credentials</h1>
@@ -23,7 +23,7 @@
                 <label id="passworderror" style="color:red;"></label>
             </div><br>
             <div class="form-group">
-                <label for="email">confirm  password:</label>
+                <label for="email">confirm password:</label>
                 <input type="password" class="form-control" id="cpassword" placeholder="Enter confirm password"
                     name="password"><br>
                 <label id="passworderror" style="color:red;"></label>
@@ -57,65 +57,69 @@
                 <tr>
                     <td>
                         <label>company</label>
-                        <input type="text" id="company" placeholder="enter company">
+                        <input type="text" id="company" class="company" placeholder="enter company">
                     </td>
                     <td>
                         <label>company</label>
-                        <input type="text" id="company" placeholder="company">
+                        <input type="text" id="company2" class="company" placeholder="company">
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <label>location</label>
-                        <input type="text" id="location" placeholder="enter location">
+                        <input type="text" id="location" class="location" placeholder="enter location">
                     </td>
                     <td>
                         <label>location</label>
-                        <input type="text" id="location" placeholder="enter location">
+                        <input type="text" id="location2" class="location" placeholder="enter location">
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <label>Address line 1</label>
-                        <input type="text" id="address line1" placeholder="enter address line 1">
+                        <input type="text" id="address line1" class="address line 1" placeholder="enter address line 1">
                     </td>
                     <td>
                         <label>Address line 1</label>
-                        <input type="text" id="address line 1" placeholder="enter address line 1">
+                        <input type="text" class="address line 1" placeholder="enter address line 1">
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <label>Address line2</label>
-                        <input type="text" id="address line 2" placeholder="enter address line 2">
+                        <input type="text" id="address line 2" class="address line 2"
+                            placeholder="enter address line 2">
                     </td>
                     <td>
                         <label>Address line2</label>
-                        <input type="text" id="address line 2" placeholder="enter address line 2">
+                        <input type="text" class="address line 2" placeholder="enter address line 2">
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <label>country</label>
-                        <input type="text" id="country" placeholder="enter country">
+                        <input type="text" id="country" class="country" placeholder="enter country">
                     </td>
                     <td>
                         <label>country</label>
-                        <input type="text" id="country" placeholder="enter country">
+                        <input type="text" class="country" placeholder="enter country">
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <label>state</label>
-                        <input type="text" id="state" placeholder="enter state">
+                        <input type="text" id="state" class="state" placeholder="enter state">
                     </td>
                     <td>
                         <label>state</label>
-                        <input type="text" id="state" placeholder="enter state">
+                        <input type="text" class="state" placeholder="enter state">
                     </td>
                 </tr>
 
             </table>
+            <p><b>Billing Information <label><input type="checkbox" value="" id="check-address">Same as
+                        billing?</label></b></p>
+            <br>
             <button type="submit" class="btn btn-primary" id="butsave">Submit</button>
             </div>
             <script>
@@ -127,9 +131,14 @@
                         var last_name = $('#last_name').val();
                         var email = $('#email').val();
                         var phone = $('#phone').val();
-                        var cpassword=$('#cpassword').val();
+                        var cpassword = $('#cpassword').val();
                         var password = $('#password').val();
-
+                        var company = $('.company').val();
+                        var location = $('.location').val();
+                        var addressline1 = $('.address line 1').val();
+                        var addressline2 = $('.address line 2').val();
+                        var country = $('.country').val();
+                        var state = $('.state').val();
                         $.ajax({
                             url: "/customer",
                             type: "POST",
@@ -152,11 +161,14 @@
                                 console.log(err);
                                 if (err.errors.site_id != "") {
                                     document.getElementById("siteerror").innerHTML = err.errors.site_id;
-                                }if (err.errors.last_name != "") {
-                                    document.getElementById("lastnamerror").innerHTML = err.errors.last_name;
+                                }
+                                if (err.errors.last_name != "") {
+                                    document.getElementById("lastnamerror").innerHTML = err.errors
+                                        .last_name;
                                 }
                                 if (err.errors.first_name != "") {
-                                    document.getElementById("firstnameerror").innerHTML = err.errors.first_name;
+                                    document.getElementById("firstnameerror").innerHTML = err.errors
+                                        .first_name;
                                 }
                                 if (err.errors.email != "") {
                                     document.getElementById("emailerror").innerHTML = err.errors.email;
@@ -164,11 +176,32 @@
                                 if (err.errors.phone != "") {
                                     document.getElementById("phoneerror").innerHTML = err.errors.phone;
                                 } else(err.errors.password != "")
-                                document.getElementById("passworderror").innerHTML = err.errors.password;
+                                document.getElementById("passworderror").innerHTML = err.errors
+                                .password;
 
                             }
                         });
                     });
+
+                    function addressFunction() {
+                        if (document.getElementById(
+                                "same").checked) {
+                            document.getElementById(
+                                    "company").value =
+                                document.getElementById(
+                                    "company").value;
+
+                            document.getElementById(
+                                    "location").value =
+                                document.getElementById(
+                                    "location").value;
+                        } else {
+                            document.getElementById(
+                                "company2").value = "";
+                            document.getElementById(
+                                "location2").value = "";
+                        }
+                    }
 
                 });
             </script>
