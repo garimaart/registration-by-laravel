@@ -77,11 +77,12 @@
                 <tr>
                     <td>
                         <label>Address line 1</label>
-                        <input type="text" id="address line1" class="address line 1" placeholder="enter address line 1">
+                        <input type="text" id="address line 1" class="address line 1"
+                            placeholder="enter address line 1">
                     </td>
                     <td>
                         <label>Address line 1</label>
-                        <input type="text" class="address line 1" placeholder="enter address line 1">
+                        <input type="text" id="address1" class="address line 1" placeholder="enter address line 1">
                     </td>
                 </tr>
                 <tr>
@@ -92,7 +93,7 @@
                     </td>
                     <td>
                         <label>Address line2</label>
-                        <input type="text" class="address line 2" placeholder="enter address line 2">
+                        <input type="text" id="address2" class="address line 2" placeholder="enter address line 2">
                     </td>
                 </tr>
                 <tr>
@@ -102,7 +103,7 @@
                     </td>
                     <td>
                         <label>country</label>
-                        <input type="text" class="country" placeholder="enter country">
+                        <input type="text" id="country1" class="country" placeholder="enter country">
                     </td>
                 </tr>
                 <tr>
@@ -112,13 +113,14 @@
                     </td>
                     <td>
                         <label>state</label>
-                        <input type="text" class="state" placeholder="enter state">
+                        <input type="text" id="state1" class="state" placeholder="enter state">
                     </td>
                 </tr>
 
             </table>
-            <p><b>Billing Information <label><input type="checkbox" value="" id="check-address">Same as
-                        billing?</label></b></p>
+            <div class="checkbox">
+                <label><input type="checkbox" id="copy_address" name="copy_address"> Same as Billing Address</label>
+            </div>
             <br>
             <button type="submit" class="btn btn-primary" id="butsave">Submit</button>
             </div>
@@ -133,12 +135,6 @@
                         var phone = $('#phone').val();
                         var cpassword = $('#cpassword').val();
                         var password = $('#password').val();
-                        var company = $('.company').val();
-                        var location = $('.location').val();
-                        var addressline1 = $('.address line 1').val();
-                        var addressline2 = $('.address line 2').val();
-                        var country = $('.country').val();
-                        var state = $('.state').val();
                         $.ajax({
                             url: "/customer",
                             type: "POST",
@@ -177,31 +173,76 @@
                                     document.getElementById("phoneerror").innerHTML = err.errors.phone;
                                 } else(err.errors.password != "")
                                 document.getElementById("passworderror").innerHTML = err.errors
-                                .password;
+                                    .password;
 
                             }
                         });
                     });
 
-                    function addressFunction() {
-                        if (document.getElementById(
-                                "same").checked) {
-                            document.getElementById(
-                                    "company").value =
-                                document.getElementById(
-                                    "company").value;
 
-                            document.getElementById(
-                                    "location").value =
-                                document.getElementById(
-                                    "location").value;
+                    $('#copy_address').click(function() {
+                        if (this.checked) {
+                            $("#company2").val($("#company").val());
+                            $("#location2").val($("#location").val());
+                            $("#address1").val($("#address line 1").val());
+                            $("#address2").val($("#address line 2").val());
+                            $("#country1").val($("#country").val());
+                            $("#state1").val($("#state").val());
+
                         } else {
-                            document.getElementById(
-                                "company2").value = "";
-                            document.getElementById(
-                                "location2").value = "";
+                            $("#company2").val('');
+                            $("#loction2").val('');
+                            $("#address1").val('');
+                            $("#address2").val('');
+                            $("#country1").val('');
+                            $("#state1").val('');
                         }
-                    }
+
+                    });
+                    $('#butsave').on('click', function() {
+                        var company = $('#company').val();
+                        var company1=$('#company1')
+                        var location = $('#location').val();
+                        var location1=$('#location1').val();
+                        var addressline1 = $('#address line 1').val();
+                        var address1=$('#address').val();
+                        var addressline2 = $('#address line 2').val();
+                        var address2=$('#address2').val();
+                        var country = $('#country').val();
+                        var country1=$('#country1').val()
+                        var state = $('#state').val();
+                        var state=$('#state1').val();
+                        $.ajax({
+                            url: "/customer",
+                            type: "POST",
+                            data: {
+                                _token: $("#csrf").val(),
+                                type: 1,
+                                company: company,
+                                company1: company1,
+                                location: location,
+                                location1: location1,
+                                addressline1:addressline1,
+                                address1: address1,
+                                addressline2:addressline2,
+                                address2:address2,
+                                country:country,
+                                country1:country1,
+                                state:state,
+                                state1:state1,
+                            },
+                            cache: false,
+                            success: function(dataResult) {
+                                console.log(dataResult);
+                            },
+                            error: function(jqAjax, statusCode, errorThrown) {
+                                var err = JSON.parse(jqAjax.responseText);
+                                console.log(err);
+                               
+                            }
+                        });
+                    });
+
 
                 });
             </script>
