@@ -9,7 +9,8 @@ class CustomerController extends Controller
 {
     public function create() { 
 
-        return view('customer.create'); 
+        $customer = Customer::all();
+        return view('customer.create')->with(compact('customer'));
        }  
        public function store(Request $request) {
         $request->validate([
@@ -26,4 +27,14 @@ class CustomerController extends Controller
             "statusCode" => 200,
         ));
       }
+      public function userdata()
+    {
+        $userData = Customer::get();
+        return $userData;
+    }
+    public function index()
+    {
+        $customer = Customer::all();
+        return view('customer.list')->with(compact('customer'));
+    }
 }

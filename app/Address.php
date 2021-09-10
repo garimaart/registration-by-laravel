@@ -11,4 +11,8 @@ class Address extends Model
     protected $fillable = [
         'customer_id', 'type', 'company', 'addressline1', 'addressline2', 'country','state'
     ];
+    public function customer()
+    {
+        return $this->hasMany('App\Customer')->orderBy('id', 'desc');
+    }
 }

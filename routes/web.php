@@ -1,6 +1,8 @@
 <?php
 
+use App\Address;
 use App\Category;
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PostController;
@@ -91,6 +93,7 @@ Route::get('list/{id}', 'PostController@destroy');
 Route::post('edit-post', [PostController::class, 'edit']);
 Route::get("customer", [CustomerController::class, 'create']);
 Route::post("customer",[CustomerController::class,'store']);
-//Route::post('list', [PostController::class, 'store1']);
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get("customer", [AddressController::class, 'create']);
+Route::post("customer",[AddressController::class,'store']);
+Route::post("customerlist", [CustomerController::class, 'userdata']);
+Route::get("customerlist", [CustomerController::class, 'index']);

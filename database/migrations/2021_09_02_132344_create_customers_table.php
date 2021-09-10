@@ -21,7 +21,7 @@ class CreateCustomersTable extends Migration
             $table->string('email');
             $table->string('phone');
             $table->string('password');
-            $table->string('admin_note');
+            $table->string('admin_note')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

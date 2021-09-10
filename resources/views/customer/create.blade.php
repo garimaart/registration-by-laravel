@@ -66,16 +66,6 @@
                 </tr>
                 <tr>
                     <td>
-                        <label>location</label>
-                        <input type="text" id="location" class="location" placeholder="enter location">
-                    </td>
-                    <td>
-                        <label>location</label>
-                        <input type="text" id="location2" class="location" placeholder="enter location">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         <label>Address line 1</label>
                         <input type="text" id="address line 1" class="address line 1"
                             placeholder="enter address line 1">
@@ -159,12 +149,10 @@
                                     document.getElementById("siteerror").innerHTML = err.errors.site_id;
                                 }
                                 if (err.errors.last_name != "") {
-                                    document.getElementById("lastnamerror").innerHTML = err.errors
-                                        .last_name;
+                                    document.getElementById("lastnamerror").innerHTML = err.errors.last_name;
                                 }
                                 if (err.errors.first_name != "") {
-                                    document.getElementById("firstnameerror").innerHTML = err.errors
-                                        .first_name;
+                                    document.getElementById("firstnameerror").innerHTML = err.errors.first_name;
                                 }
                                 if (err.errors.email != "") {
                                     document.getElementById("emailerror").innerHTML = err.errors.email;
@@ -183,7 +171,6 @@
                     $('#copy_address').click(function() {
                         if (this.checked) {
                             $("#company2").val($("#company").val());
-                            $("#location2").val($("#location").val());
                             $("#address1").val($("#address line 1").val());
                             $("#address2").val($("#address line 2").val());
                             $("#country1").val($("#country").val());
@@ -201,9 +188,7 @@
                     });
                     $('#butsave').on('click', function() {
                         var company = $('#company').val();
-                        var company1=$('#company1')
-                        var location = $('#location').val();
-                        var location1=$('#location1').val();
+                        var company1=$('#company1').val();
                         var addressline1 = $('#address line 1').val();
                         var address1=$('#address').val();
                         var addressline2 = $('#address line 2').val();
@@ -220,8 +205,6 @@
                                 type: 1,
                                 company: company,
                                 company1: company1,
-                                location: location,
-                                location1: location1,
                                 addressline1:addressline1,
                                 address1: address1,
                                 addressline2:addressline2,
