@@ -97,3 +97,4 @@ Route::get("customer", [AddressController::class, 'create']);
 Route::post("customer",[AddressController::class,'store']);
 Route::post("customerlist", [CustomerController::class, 'userdata']);
 Route::get("customerlist", [CustomerController::class, 'index']);
+Route::get("edit", [CustomerController::class, 'set']);

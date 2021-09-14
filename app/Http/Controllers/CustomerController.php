@@ -37,4 +37,10 @@ class CustomerController extends Controller
         $customer = Customer::all();
         return view('customer.list')->with(compact('customer'));
     }
+    public function set()
+    {
+       
+        $customer = Customer::all();
+        return view('customer.edit')->with(compact('customer'));
+    }
 }

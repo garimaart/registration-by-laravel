@@ -74,7 +74,9 @@
             </div>
             <script>
                 jQuery(document).ready(function($) {
-
+                    $('#edit').click(function () {
+            window.location.href='/edit';
+        });
 
                     jQuery('#btn-add').click(function() {
                         jQuery('#btn-save').val("add");
@@ -82,7 +84,7 @@
                         jQuery('#formModal').modal('show');
                     });
 
-                    // CREATE
+                  
                     $("#btn-save").click(function(e) {
                         $.ajaxSetup({
                             headers: {
