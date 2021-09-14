@@ -26,56 +26,31 @@
                         @endforeach
                     </tbody>
                 </table>
-
-                <div class="modal fade" id="formModal" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="formModalLabel">Create customer</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form id="myForm" name="myForm" class="form-horizontal" novalidate="">
-
-                                    <div class="form-group">
-                                        <label>last name</label>
-                                        <input type="text" class="form-control" id="last_name" name="last_name"
-                                            placeholder="Enter title" value="">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>first Name</label>
-                                        <input type="text" class="form-control" id="first_name" name="first_name"
-                                            placeholder="first_name" value="">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>phone</label>
-                                        <input type="text" class="form-control" id="phone" name="phone"
-                                            placeholder="Enter phone" value="">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>email</label>
-                                        <input type="text" class="form-control" id="email" name="email"
-                                            placeholder="Enter email" value="">
-                                    </div>
-
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" id="btn-save" value="add">Save changes
-                                </button>
-                                <input type="hidden" id="customer_id" name="customer_id" value="0">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            </div>
             <script>
                 jQuery(document).ready(function($) {
                     $('#edit').click(function () {
             window.location.href='/edit';
+            $(document).on("click", "#apply", function(){
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
+});
+
+$.ajax({
+  type: "get",
+  url: '/edit',
+  success: function(store){
+    if(store == 'confirmed'){
+      $("#formModal").toggleClass("open").show();
+      $("body").toggleClass("open");
+    }
+  },
+
+});
+
+});
+
         });
 
                     jQuery('#btn-add').click(function() {
