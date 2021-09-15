@@ -62,6 +62,27 @@
                 </div>
             </div>
             <script>
+                jQuery('#delete').click(function () {
+        var link_id = $(this).val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "DELETE",
+            url: '/edit',
+            success: function (data) {
+                console.log(data);
+                $("#link" + link_id).remove();
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+    });
+});
+
             </script>
         </main>
     </section>

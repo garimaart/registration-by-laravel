@@ -89,7 +89,7 @@
                 <tr>
                     <td>
                         <label>country</label>
-                        <input type="text" id="country" class="country" placeholder="enter country">
+                        <input type="text" id="autocomplete" class="country" placeholder="enter country">
                     </td>
                     <td>
                         <label>country</label>
@@ -97,13 +97,13 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <label>state</label>
-                        <input type="text" id="state" class="state" placeholder="enter state">
+                    <td id="latitudeArea">
+                        <label>latitude</label>
+                        <input type="text" id="latitude" class="latitude" placeholder="enter latitude">
                     </td>
-                    <td>
-                        <label>state</label>
-                        <input type="text" id="state1" class="state" placeholder="enter state">
+                    <td id="longtitudeArea">
+                        <label>longtitude</label>
+                        <input type="text" id="longtitude" class="longtitude" placeholder="enter longtitude">
                     </td>
                 </tr>
 
@@ -228,7 +228,22 @@
 
 
                 });
-            </script>
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    function initialize() {
+        var input = document.getElementById('autocomplete');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+        autocomplete.addListener('place_changed', function () {
+            var place = autocomplete.getPlace();
+            $('#latitude').val(place.geometry['location'].lat());
+            $('#longitude').val(place.geometry['location'].lng());
+
+            $("#latitudeArea").removeClass("d-none");
+            $("#longtitudeArea").removeClass("d-none");
+        });
+    }
+</script>
         </main>
     </section>
 </x-layout>
