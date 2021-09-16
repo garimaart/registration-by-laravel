@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
@@ -42,5 +43,17 @@ class CustomerController extends Controller
        
         $customer = Customer::all();
         return view('customer.edit')->with(compact('customer'));
+    }
+    public function password(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required', new Customer],
+            'new_password' => ['required'],
+            'new_confirm_password' => ['same:new_password'],
+        ]);
+   
+        Customer::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
+   
+        dd('Password change successfully.');
     }
 }
