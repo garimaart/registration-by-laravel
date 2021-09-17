@@ -7,19 +7,20 @@
                 <button style="margin:10px;" class="btn btn-info add-modal"> Add note</button>
                 <button style="margin:10px;" class="btn btn-info delete-modal"> Delete</button>
 
+                <div>
                 <label>site id</label>
-                <input class="site_id" id="site_id" >
+                <input  type="text" class="site_id" id="site_id" ><br>
                 <label>first_name</label>
-                <input class="first_name" id="first_name">
+                <input type="text" class="first_name" id="first_name">i<br>
                 <label>last name</label>
-                <input class="last_name" id="lst_name">
+                <input type="text" class="last_name" id="lst_name"><br>
                 <label>phone</label>
-                <input class="phone" id="phone">
+                <input type="number" class="phone" id="phone"><br>
                 <label>email</label>
-                <input class="email" id="email">
-
+                <input type="email" class="email" id="email">
+                </div>
             </div>
-            <div class="modal fade" id="formModal" aria-hidden="true">
+            <div class="modal fade" id="formModal" aria-hidden="true">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -82,6 +83,23 @@
         });
     });
 });
+$(document).ready(function() {
+        $("#lat_area").addClass("d-none");
+        $("#long_area").addClass("d-none");
+   });
+google.maps.event.addDomListener(window, 'load', initialize);
+
+   function initialize() {
+       var input = document.getElementById('autocomplete');
+       var autocomplete = new google.maps.places.Autocomplete(input);
+       autocomplete.addListener('place_changed', function() {
+           var place = autocomplete.getPlace();
+           $('#latitude').val(place.geometry['location'].lat());
+           $('#longitude').val(place.geometry['location'].lng());
+           $("#lat_area").removeClass("d-none");
+           $("#long_area").removeClass("d-none");
+       });
+   }
 
             </script>
         </main>
