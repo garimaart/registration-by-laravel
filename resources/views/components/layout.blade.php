@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <script type="text/javascript"
     src="https://maps.google.com/maps/api/js?key=Your_Google_Key=places&callback=initAutocomplete"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=GOOGLE_MAP_API_KEY&libraries=places®ion=in"></script>
 <body style="font-family: Open Sans, sans-serif;" >
     <section class="px-6 py-8">
         <nav class="md:flex md:justify-between md:items-center">

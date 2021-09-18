@@ -149,10 +149,12 @@
                                     document.getElementById("siteerror").innerHTML = err.errors.site_id;
                                 }
                                 if (err.errors.last_name != "") {
-                                    document.getElementById("lastnamerror").innerHTML = err.errors.last_name;
+                                    document.getElementById("lastnamerror").innerHTML = err.errors
+                                        .last_name;
                                 }
                                 if (err.errors.first_name != "") {
-                                    document.getElementById("firstnameerror").innerHTML = err.errors.first_name;
+                                    document.getElementById("firstnameerror").innerHTML = err.errors
+                                        .first_name;
                                 }
                                 if (err.errors.email != "") {
                                     document.getElementById("emailerror").innerHTML = err.errors.email;
@@ -168,82 +170,50 @@
                     });
 
 
-                    $('#copy_address').click(function() {
-                        if (this.checked) {
-                            $("#company2").val($("#company").val());
-                            $("#address1").val($("#address line 1").val());
-                            $("#address2").val($("#address line 2").val());
-                            $("#country1").val($("#country").val());
-                            $("#state1").val($("#state").val());
+                    var autocomplete = null;
+                    var componentForm = {
+                        street_number: 'short_name',
+                        route: 'long_name',
+                        locality: 'long_name',
+                        administrative_area_level_2: 'long_name',
+                        country: 'long_name',
+                        postal_code: 'short_name'
+                    };
 
-                        } else {
-                            $("#company2").val('');
-                            $("#loction2").val('');
-                            $("#address1").val('');
-                            $("#address2").val('');
-                            $("#country1").val('');
-                            $("#state1").val('');
+                    function initAutocomplete() {
+                        var address = document.getElementById('address');
+                        var options = {
+                            types: ['address'],
+                            componentRestrictions: {
+                                country: ['be']
+                            }
+                        };
+
+                        autocomplete = new google.maps.places.Autocomplete(address, options);
+                        autocomplete.addListener('place_changed', fillInAddress);
+                    }
+
+                    function fillInAddress() {
+                        // Get the place details from the autocomplete object.
+                        var place = autocomplete.getPlace();
+
+                        for (var component in componentForm) {
+                            document.getElementById(component).value = '';
+                            document.getElementById(component).disabled = false;
                         }
 
-                    });
-                    $('#butsave').on('click', function() {
-                        var company = $('#company').val();
-                        var company1=$('#company1').val();
-                        var addressline1 = $('#address line 1').val();
-                        var address1=$('#address').val();
-                        var addressline2 = $('#address line 2').val();
-                        var address2=$('#address2').val();
-                        var country = $('#country').val();
-                        var country1=$('#country1').val()
-                        var state = $('#state').val();
-                        var state=$('#state1').val();
-                        $.ajax({
-                            url: "/customer",
-                            type: "POST",
-                            data: {
-                                _token: $("#csrf").val(),
-                                type: 1,
-                                company: company,
-                                company1: company1,
-                                addressline1:addressline1,
-                                address1: address1,
-                                addressline2:addressline2,
-                                address2:address2,
-                                country:country,
-                                country1:country1,
-                                state:state,
-                                state1:state1,
-                            },
-                            cache: false,
-                            success: function(dataResult) {
-                                console.log(dataResult);
-                            },
-                            error: function(jqAjax, statusCode, errorThrown) {
-                                var err = JSON.parse(jqAjax.responseText);
-                                console.log(err);
-                               
+                        // Get each component of the address from the place details
+                        // and fill the corresponding field on the form.
+                        for (var i = 0; i < place.address_components.length; i++) {
+                            var addressType = place.address_components[i].types[0];
+                            if (componentForm[addressType]) {
+                                var val = place.address_components[i][componentForm[addressType]];
+                                document.getElementById(addressType).value = val;
                             }
-                        });
-                    });
-
-
+                        }
+                    }
                 });
-    google.maps.event.addDomListener(window, 'load', initialize);
-
-    function initialize() {
-        var input = document.getElementById('autocomplete');
-        var autocomplete = new google.maps.places.Autocomplete(input);
-
-        autocomplete.addListener('place_changed', function () {
-            var place = autocomplete.getPlace();
-            $('#latitude').val(place.geometry['location'].lat());
-            $('#longitude').val(place.geometry['location'].lng());
-
-            $("#latitudeArea").removeClass("d-none");
-            $("#longtitudeArea").removeClass("d-none");
-        });
-    }
-</script>
+            </script>
         </main>
     </section>
 </x-layout>
