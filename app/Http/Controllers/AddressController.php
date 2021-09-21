@@ -28,6 +28,6 @@ class AddressController extends Controller
     }
     public function Address()
     {
-    	return view('welcome');
+    	return view('customer.address');
     }
 }
