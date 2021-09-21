@@ -26,4 +26,8 @@ class AddressController extends Controller
             "statusCode" => 200,
         ));
     }
+    public function Address()
+    {
+    	return view('welcome');
+    }
 }

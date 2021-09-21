@@ -1,84 +1,64 @@
-<x-layout>
-    <section>
-         <main>
-let autocomplete: google.maps.places.Autocomplete;
-let address1Field: HTMLInputElement;
-let address2Field: HTMLInputElement;
-let postalField: HTMLInputElement;
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-function initAutocomplete() {
-  address1Field = document.querySelector("#ship-address") as HTMLInputElement;
-  address2Field = document.querySelector("#address2") as HTMLInputElement;
-  postalField = document.querySelector("#postcode") as HTMLInputElement;
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  
-  autocomplete = new google.maps.places.Autocomplete(address1Field, {
-    componentRestrictions: { country: ["us", "ca"] },
-    fields: ["address_components", "geometry"],
-    types: ["address"],
-  });
-  address1Field.focus();
+    <title>Laravel Google Autocomplete Address Example</title>
 
-  
-  autocomplete.addListener("place_changed", fillInAddress);
-}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
 
-function fillInAddress() {
-  const place = autocomplete.getPlace();
-  let address1 = "";
-  let postcode = "";
+<body>
+    <div class="container mt-5">
+        <h2>Implement Google Autocomplete Address in Laravel 8</h2>
 
-  for (const component of place.address_components as google.maps.GeocoderAddressComponent[]) {
-    const componentType = component.types[0];
+        <div class="form-group">
+            <label>Location/City/Address</label>
+            <input type="text" name="autocomplete" id="autocomplete" class="form-control" placeholder="Choose Location">
+        </div>
 
-    switch (componentType) {
-      case "street_number": {
-        address1 = `${component.long_name} ${address1}`;
-        break;
-      }
+        <div class="form-group" id="latitudeArea">
+            <label>Latitude</label>
+            <input type="text" id="latitude" name="latitude" class="form-control">
+        </div>
 
-      case "route": {
-        address1 += component.short_name;
-        break;
-      }
+        <div class="form-group" id="longtitudeArea">
+            <label>Longitude</label>
+            <input type="text" name="longitude" id="longitude" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
 
-      case "postal_code": {
-        postcode = `${component.long_name}${postcode}`;
-        break;
-      }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-      case "postal_code_suffix": {
-        postcode = `${postcode}-${component.long_name}`;
-        break;
-      }
+    <script type="text/javascript"
+        src="https://maps.google.com/maps/api/js?key=Your_Google_Key=places&callback=initAutocomplete"></script>
+    <script>
+        $(document).ready(function () {
+            $("#latitudeArea").addClass("d-none");
+            $("#longtitudeArea").addClass("d-none");
+        });
+    </script>
+    <script>
+        google.maps.event.addDomListener(window, 'load', initialize);
 
-      case "locality":
-        (document.querySelector("#locality") as HTMLInputElement).value =
-          component.long_name;
-        break;
+        function initialize() {
+            var input = document.getElementById('autocomplete');
+            var autocomplete = new google.maps.places.Autocomplete(input);
 
-      case "administrative_area_level_1": {
-        (document.querySelector("#state") as HTMLInputElement).value =
-          component.short_name;
-        break;
-      }
+            autocomplete.addListener('place_changed', function () {
+                var place = autocomplete.getPlace();
+                $('#latitude').val(place.geometry['location'].lat());
+                $('#longitude').val(place.geometry['location'].lng());
 
-      case "country":
-        (document.querySelector("#country") as HTMLInputElement).value =
-          component.long_name;
-        break;
-    }
-  }
-
-  address1Field.value = address1;
-  postalField.value = postcode;
-
-  // After filling the form with address components from the Autocomplete
-  // prediction, set cursor focus on the second address line to encourage
-  // entry of subpremise information such as apartment, unit, or floor number.
-  address2Field.focus();
-}
-    
-        </main>
-    </section>
-</x-layout>
+                $("#latitudeArea").removeClass("d-none");
+                $("#longtitudeArea").removeClass("d-none");
+            });
+        }
+    </script>
+</body>
+</html>
