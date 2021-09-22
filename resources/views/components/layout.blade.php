@@ -5,10 +5,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<script type="text/javascript"
-    src="https://maps.google.com/maps/api/js?key=Your_Google_Key=places&callback=initAutocomplete"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=GOOGLE_MAP_API_KEY&libraries=places®ion=in"></script>
-<body style="font-family: Open Sans, sans-serif;" >
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9Hail3b-V02kqO_dkGjSy9rlL-T-T92s"></script>
+
+<body style="font-family: Open Sans, sans-serif;">
     <section class="px-6 py-8">
         <nav class="md:flex md:justify-between md:items-center">
             <div>
@@ -19,15 +18,15 @@
 
             <div class="mt-8 md:mt-0 flex items-center">
                 @auth
-                    <span class="text-xs font-bold uppercase">welcome,{{ auth()->user()->name}}</span>  
+                    <span class="text-xs font-bold uppercase">welcome,{{ auth()->user()->name }}</span>
                     <form method="POST" action="/logout" class="text-xs font-semibold text-blue-500  ml-6">
                         @csrf
                         <button type="submit">logout</button>
                     </form>
-               @else
-                <a href="/register" class="text-xs font-bold uppercase">Register</a>
-                <a href="/login" class="ml-5 text-xs font-bold uppercase">login</a>
-                <a href="/posts" class="ml-5 text-xs font-bold uppercase">posts</a>
+                @else
+                    <a href="/register" class="text-xs font-bold uppercase">Register</a>
+                    <a href="/login" class="ml-5 text-xs font-bold uppercase">login</a>
+                    <a href="/posts" class="ml-5 text-xs font-bold uppercase">posts</a>
                 @endauth
                 <a href="#" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
                     Subscribe for Updates
@@ -35,7 +34,7 @@
             </div>
         </nav>
 
-        {{ $slot}}
+        {{ $slot }}
 
         <footer class="bg-gray-100 border border-black border-opacity-5 rounded-xl text-center py-16 px-10 mt-16">
             <img src="./images/lary-newsletter-icon.svg" alt="" class="mx-auto -mb-6" style="width: 145px;">
@@ -52,12 +51,11 @@
                             </label>
 
                             <input id="email" type="text" placeholder="Your email address"
-                                   class="lg:bg-transparent py-2 lg:py-0 pl-4 focus-within:outline-none">
+                                class="lg:bg-transparent py-2 lg:py-0 pl-4 focus-within:outline-none">
                         </div>
 
                         <button type="submit"
-                                class="transition-colors duration-300 bg-blue-500 hover:bg-blue-600 mt-4 lg:mt-0 lg:ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-8"
-                        >
+                            class="transition-colors duration-300 bg-blue-500 hover:bg-blue-600 mt-4 lg:mt-0 lg:ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-8">
                             Subscribe
                         </button>
                     </form>
