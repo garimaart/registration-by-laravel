@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9Hail3b-V02kqO_dkGjSy9rlL-T-T92s"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4cqooHdHQHubfFtoXYr0wE8V3OACYdv8&libraries=places"></script>
 
 <body style="font-family: Open Sans, sans-serif;">
     <section class="px-6 py-8">

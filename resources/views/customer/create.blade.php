@@ -45,8 +45,7 @@
             </div>
             <div class="form-group mb-6">
                 <label for="email">Phone:</label>
-                <input type="number" class="form-control" id="phone" placeholder="Enter phone number"
-                    name="phone_no"><br>
+                <input type="number" class="form-control" id="phone" placeholder="Enter phone number" name="phone_no"><br>
                 <label id="phoneerror" style="color:red;"></label>
             </div>
             <table>
@@ -181,15 +180,9 @@
                     };
 
                     function initAutocomplete() {
-                        var address = document.getElementById('address');
-                        var options = {
-                            types: ['address'],
-                            componentRestrictions: {
-                                country: ['be']
-                            }
-                        };
+                        var address = document.getElementById('autocomplete');
 
-                        autocomplete = new google.maps.places.Autocomplete(address, options);
+                        autocomplete = new google.maps.places.Autocomplete(address);
                         autocomplete.addListener('place_changed', fillInAddress);
                     }
 
@@ -209,7 +202,10 @@
                             }
                         }
                     }
+                initAutocomplete();
+
                 });
+
             </script>
         </main>
     </section>

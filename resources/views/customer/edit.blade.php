@@ -75,18 +75,37 @@
                 <th>address line1</th>
                 <th>address line1</th>
                 </tr>
+                @foreach ($address as $data)
+
+                <tr>
+                    <td>{{ $data->address_line1}}</td>
+                    <td>{{ $data->address_line1}}</td>
+                </tr>
                 <tr>
                 <th>address line2</th>       
                 <th>address line2</th>
+                </tr>
+                <tr>
+                    <td>{{ $data->address_line2}}</td>
+                    <td>{{ $data->address_line2}}</td>
                 </tr>
                 <tr>
                  <th>country</th>            
                  <th>country</th>
                 </tr>
                 <tr>
+                    <td>{{ $data->country}}</td>
+                    <td>{{ $data->country}}</td>
+                </tr>
+                <tr>
                  <th>state</th>              
                  <th>state</th>
                 </tr>
+                <tr>
+                    <td>{{ $data->state}}</td>
+                    <td>{{ $data->state}}</td>
+                </tr>
+                @endforeach
             </table>
             <script>
                 jQuery('#delete').click(function() {
@@ -106,7 +125,6 @@
                     error: function(data) {
                         console.log('Error:', data);
                     }
-                });
                 });
                 });
                 $(document).ready(function() {

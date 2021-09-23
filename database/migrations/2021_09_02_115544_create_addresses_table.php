@@ -19,7 +19,7 @@ class CreateAddressesTable extends Migration
             $table->enum('type',['shipping','billing','shipping-billing','others']);
             $table->string('company');
             $table->string('address_line1')->nullable();
-            $table->double('address_line2')->nullable();
+            $table->string('address_line2')->nullable();
             $table->string('country');
             $table->string('state');
             $table->softDeletes();

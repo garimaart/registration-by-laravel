@@ -99,3 +99,4 @@ Route::post("customerlist", [CustomerController::class, 'userdata']);
 Route::get("customerlist", [CustomerController::class, 'index']);
 Route::get("edit", [CustomerController::class, 'set']);
 Route::get('address',[AddressController::class,'Address']);
+Route::get('edit',[AddressController::class,'index']);

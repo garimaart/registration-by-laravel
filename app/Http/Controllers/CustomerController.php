@@ -40,7 +40,6 @@ class CustomerController extends Controller
     }
     public function set()
     {
-       
         $customer = Customer::all();
         return view('customer.edit')->with(compact('customer'));
     }

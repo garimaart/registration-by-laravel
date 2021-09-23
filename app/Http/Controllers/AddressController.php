@@ -30,4 +30,10 @@ class AddressController extends Controller
     {
     	return view('customer.address');
     }
+    public function index()
+    {
+        $address = Address::all();
+        return view('customer.edit')->with(compact('address'));
+    }
+    
 }
